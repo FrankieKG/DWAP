@@ -1,18 +1,28 @@
-html {
-  font-size: 14px;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.box {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.purple {
+  background-color: purple;
 }
 
-body {
-  margin-bottom: 60px;
+.box p {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
 }
