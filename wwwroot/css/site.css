@@ -3,7 +3,9 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 10vh;
+    padding-bottom: 50px;
+    color: white;
 }
 
 .box {
@@ -14,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 100px;
 }
 
 .purple {
@@ -23,6 +25,13 @@
 
 .box p {
     color: white;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
+}
+
+footer {
+    background-color: purple;
+    color: white;
+    text-align: center;
+    padding: 20px;
 }
