@@ -6,14 +6,28 @@ namespace WebApplication5.Controllers
 {
   public class HomeController : Controller
   {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-      _logger = logger;
-    }
 
     public IActionResult Index()
+    {
+      return View();
+    }
+
+    public IActionResult Mobilitetsstatistik()
+    {
+      return View();
+    }
+    
+    public IActionResult Partnerskap()
+    {
+      return View();
+    }
+
+    public IActionResult Programstatistik()
+    {
+      return View();
+    }
+
+    public IActionResult Praktik()
     {
       return View();
     }
@@ -22,7 +36,7 @@ namespace WebApplication5.Controllers
     {
       return View();
     }
-
+    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
