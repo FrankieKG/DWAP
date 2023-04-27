@@ -6,7 +6,13 @@ namespace WebApplication5.Controllers
 {
   public class HomeController : Controller
   {
+    private readonly IRepository repo;
 
+    public HomeController(IRepository repo)
+    {
+      this.repo = repo;
+    }
+    
     public IActionResult Index()
     {
       return View();
