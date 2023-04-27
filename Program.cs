@@ -1,8 +1,11 @@
 
+using WebApplication5.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Adds services to the container
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IRepository, Repository>();
 
 var app = builder.Build();
 
