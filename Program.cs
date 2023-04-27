@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Adds services to the container
 builder.Services.AddControllersWithViews();
+    //Dependency injection för projektet:
 builder.Services.AddTransient<IRepository, Repository>();
 
 var app = builder.Build();
