@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication5.Models.POCO
+namespace WebApplication5.Models
 {
   public class PreviousApplication
   {
@@ -11,9 +11,9 @@ namespace WebApplication5.Models.POCO
     [Key, Column(Order = 1)]
     [MaxLength(255)]
     public string PreviousDnr { get; set; }
-    [ForeignKey(nameof(ApplicationId))]
+    [ForeignKey("ApplicationId")]
     public virtual ApplicationAndEvaluation Application { get; set; }
-    [ForeignKey(nameof(PreviousDnr))]
-    public virtual ApplicationAndEvaluation PreviousApplication { get; set; }
+    [ForeignKey("PreviousDnr")]
+    public virtual ApplicationAndEvaluation PreviousApplicationDnr { get; set; }
   }
 }
