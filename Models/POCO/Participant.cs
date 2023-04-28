@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using WebApplication5.Models.POCO;
 
 namespace WebApplication5.Models
 {

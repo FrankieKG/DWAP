@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication5.Models.POCO
+namespace WebApplication5.Models
 {
   public class ReportAndReclaim
   {
