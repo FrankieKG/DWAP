@@ -20,22 +20,22 @@ namespace WebApplication5.Controllers
 
     public ViewResult Mobilitetsstatistik()
     {
-      return View();
+      return View(Mobilitetsstatistik);
     }
     
     public ViewResult Partnerskap()
     {
-      return View();
+      return View(Partnerskap);
     }
     
     public ViewResult Programstatistik()
     {
-      return View();
+      return View(Programstatistik);
     }
     
     public IActionResult Praktik()
     {
-      return View();
+      return View(Praktik);
     }
     
     public IActionResult Privacy()
