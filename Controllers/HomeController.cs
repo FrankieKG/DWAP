@@ -13,31 +13,31 @@ namespace WebApplication5.Controllers
       this.repo = repo;
     }
     
-    public IActionResult Index()
+    public ViewResult Index()
     {
       return View();
     }
 
-    public IActionResult Mobilitetsstatistik()
+    public ViewResult Mobilitetsstatistik()
     {
       return View();
     }
     
-    public IActionResult Partnerskap()
+    public ViewResult Partnerskap()
     {
       return View();
     }
-
-    public IActionResult Programstatistik()
+    
+    public ViewResult Programstatistik()
     {
       return View();
     }
-
+    
     public IActionResult Praktik()
     {
       return View();
     }
-
+    
     public IActionResult Privacy()
     {
       return View();
