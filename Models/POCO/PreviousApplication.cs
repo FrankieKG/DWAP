@@ -7,7 +7,7 @@ namespace WebApplication5.Models.POCO
   {
     public int ApplicationId { get; set; }
     public string PreviousDnr { get; set; }
-
+    
     [Required]
     [ForeignKey("ApplicationId")]
     public virtual ApplicationAndEvaluation Application { get; set; }
