@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication5.Models.POCO
+namespace WebApplication5.Models
 {
   public class ApplicationAndEvaluation
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ApplicationId { get; set; }
+    
     [Required]
     [MaxLength(255)]
     public string FrameCaseNumber { get; set; }
@@ -29,9 +30,10 @@ namespace WebApplication5.Models.POCO
     public int OrganizationId { get; set; }
     public int ProgramId { get; set; }
 
-    [ForeignKey(nameof(OrganizationId))]
+    [ForeignKey("OrganizationId")]
     public virtual Organization Organization { get; set; }
-    [ForeignKey(nameof(ProgramId))]
+    
+    [ForeignKey("ProgramId")]
     public virtual Program Program { get; set; }
   }
 }
