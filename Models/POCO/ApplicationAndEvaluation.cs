@@ -12,8 +12,11 @@ namespace WebApplication5.Models
     [Required]
     [MaxLength(255)]
     public string FrameCaseNumber { get; set; }
+    [MaxLength(255)]
     public string Dnr { get; set; }
+    [MaxLength(255)]
     public string ApplicationStatus { get; set; }
+    [MaxLength(255)]
     public string Period { get; set; }
     public DateTime PeriodDate { get; set; }
     public DateTime Archived_Date { get; set; }
