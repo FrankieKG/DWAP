@@ -1,13 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using WebApplication5.Models.POCO;
 
-namespace WebApplication5.Models.POCO
+namespace WebApplication5.Models
 {
   public class Participant
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ParticipantId { get; set; }
+    
     [MaxLength(255)]
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -31,6 +33,7 @@ namespace WebApplication5.Models.POCO
     public int Reported_Women_AssociatedStaff_Number { get; set; }
     public int Reported_Men_AssociatedStaff_Number { get; set; }
     public int ApplicationId { get; set; }
+    
     [ForeignKey(nameof(ApplicationId))]
     public virtual ApplicationAndEvaluation Application { get; set; }
   }

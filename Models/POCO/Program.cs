@@ -1,16 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication5.Models.POCO
+namespace WebApplication5.Models
 {
   public class Program
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProgramId { get; set; }
+    
     [Required]
     [MaxLength(255)]
     public string ProgramName { get; set; }
+    
     [MaxLength(255)]
     public string EducationLevel { get; set; }
     public string EducationalProgram { get; set; }
