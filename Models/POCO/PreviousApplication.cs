@@ -6,9 +6,9 @@ namespace WebApplication5.Models
 {
   public class PreviousApplication
   {
-    [Key, Column(Order = 0)]
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public int ApplicationId { get; set; }
-    [Key, Column(Order = 1)]
     [MaxLength(255)]
     public string PreviousDnr { get; set; }
     [ForeignKey("ApplicationId")]
