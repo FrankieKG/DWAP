@@ -3,10 +3,12 @@ using WebApplication5.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adds services to the container
 builder.Services.AddControllersWithViews();
-    //Dependency injection för projektet:
 builder.Services.AddTransient<IRepository, Repository>();
+builder.Services.AddDbContext <ApplicationDbContext>
+(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 
 var app = builder.Build();
 
