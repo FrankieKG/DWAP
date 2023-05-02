@@ -2,11 +2,9 @@
 
 public interface IRepository
 {
-    //Signaturer för alla metoder som ska finnas i Repository
-
-    //Här ska queryset för POCO-klasser läggas in (IQueryable<POCO-klass>) så att vi kan få ut listor av alla klasser
-    //Dessa definieras i Repositoryt (
-
+    IQueryable<ApplicationAndEvaluation> ApplicationAndEvaluations { get; }
+    
+    
     Task ReadFile(IFormFile file);
 
 }

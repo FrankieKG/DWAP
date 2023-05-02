@@ -17,7 +17,7 @@ namespace WebApplication5.Controllers
     {
       return View();
     }
-
+    
     public ViewResult Mobilitetsstatistik()
     {
       return View(Mobilitetsstatistik);
