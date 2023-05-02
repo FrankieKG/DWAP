@@ -9,12 +9,5 @@ namespace WebApplication5.Models
     public int ApplicationId { get; set; }
     public int PreviousDnr { get; set; }
     
-    [Required]
-    [ForeignKey("ApplicationId")]
-    public virtual ApplicationAndEvaluation Application { get; set; }
-    
-    [Required]
-    [ForeignKey("PreviousDnr")]
-    public virtual ApplicationAndEvaluation PrevApplication { get; set; }
   }
 }

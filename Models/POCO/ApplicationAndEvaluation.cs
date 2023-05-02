@@ -33,10 +33,5 @@ namespace WebApplication5.Models
     public int OrganizationId { get; set; }
     public int ProgramId { get; set; }
 
-    [ForeignKey("OrganizationId")]
-    public virtual Organization Organization { get; set; }
-    
-    [ForeignKey("ProgramId")]
-    public virtual Program Program { get; set; }
   }
 }

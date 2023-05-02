@@ -91,10 +91,6 @@ namespace WebApplication5.Migrations
 
                     b.HasKey("ApplicationId");
 
-                    b.HasIndex("OrganizationId");
-
-                    b.HasIndex("ProgramId");
-
                     b.ToTable("ApplicationAndEvaluations");
                 });
 
@@ -292,14 +288,15 @@ namespace WebApplication5.Migrations
             modelBuilder.Entity("WebApplication5.Models.PreviousApplication", b =>
                 {
                     b.Property<int>("ApplicationId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationId"));
 
                     b.Property<int>("PreviousDnr")
                         .HasColumnType("int");
 
                     b.HasKey("ApplicationId");
-
-                    b.HasIndex("PreviousDnr");
 
                     b.ToTable("PreviousApplications");
                 });
@@ -461,25 +458,6 @@ namespace WebApplication5.Migrations
                     b.ToTable("ScholarshipAndGrants");
                 });
 
-            modelBuilder.Entity("WebApplication5.Models.ApplicationAndEvaluation", b =>
-                {
-                    b.HasOne("WebApplication5.Models.Organization", "Organization")
-                        .WithMany()
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication5.Models.Program", "Program")
-                        .WithMany()
-                        .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organization");
-
-                    b.Navigation("Program");
-                });
-
             modelBuilder.Entity("WebApplication5.Models.Participant", b =>
                 {
                     b.HasOne("WebApplication5.Models.ApplicationAndEvaluation", "Application")
@@ -500,25 +478,6 @@ namespace WebApplication5.Migrations
                         .IsRequired();
 
                     b.Navigation("Application");
-                });
-
-            modelBuilder.Entity("WebApplication5.Models.PreviousApplication", b =>
-                {
-                    b.HasOne("WebApplication5.Models.ApplicationAndEvaluation", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication5.Models.ApplicationAndEvaluation", "PrevApplication")
-                        .WithMany()
-                        .HasForeignKey("PreviousDnr")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Application");
-
-                    b.Navigation("PrevApplication");
                 });
 
             modelBuilder.Entity("WebApplication5.Models.ReportAndReclaim", b =>
