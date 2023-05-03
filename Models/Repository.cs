@@ -131,7 +131,7 @@ public class Repository : IRepository
       {"Godkänt antal personal", "" },
       {"Medföljande stödpersonal?", "" },
     { "Arkiverat datum", "Archived_Date" },
-    { "Utbildningsprogram", "EducationalProgram" }
+    { "Utbildningsprogram", "EducationalProgram"}
 };
     //Open the Excel file using ExcelPackage
     using (var excelPackage = new ExcelPackage(new MemoryStream(formFile.OpenReadStream())))
