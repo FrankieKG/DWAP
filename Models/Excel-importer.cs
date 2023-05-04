@@ -14,9 +14,9 @@
     public List<ReportAndReclaim> ReportAndReclaim { get; set; }
     public List<ScholarshipAndGrant> ScholarshipAndGrant { get; set; }
 
-    public Excel_importer(string filepath)
-    { 
-    
+    public Excel_importer(string filePath, Dictionary<string, string> columnMappings)
+    {
+     
       ApplicationAndEvaluation = new List<ApplicationAndEvaluation>();
       Organization = new List<Organization>(); 
       Participant = new List<Participant>();
@@ -26,7 +26,8 @@
       ReportAndReclaim = new List<ReportAndReclaim>();
       ScholarshipAndGrant = new List<ScholarshipAndGrant>();
 
-      FileInfo file = new FileInfo(filepath);
+      FileInfo file = new FileInfo(filePath);
+
 
       using (ExcelPackage package = new ExcelPackage(file))
       {
