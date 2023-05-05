@@ -9,10 +9,9 @@ namespace WebApplication5.Models
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ReportId { get; set; }
     [MaxLength(255)]
-    public string ReportStatus { get; set; }
     public DateTime ReportStatusDate { get; set; }
     public DateTime Date_when_ReportStatus_Set { get; set; }
-    public string Status_Report { get; set; }
+    public string Status_Report { get; set; } 
     public DateTime Reclaim_Paid_Date { get; set; }
     public float Reclaim_Amount { get; set; }
     public float Reclaim_Paid_Amount { get; set; }
