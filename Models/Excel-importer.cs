@@ -92,7 +92,26 @@
                 {
                   propertyInfo.SetValue(participants, convertedValue);
                 }
-                // ... other conditions for other POCO classes
+                else if (modelType == typeof(Payment))
+                {
+                  propertyInfo.SetValue(payments, convertedValue);
+                }
+                else if (modelType == typeof(PreviousApplication))
+                {
+                  propertyInfo.SetValue(previousApplications, convertedValue);
+                }
+                else if (modelType == typeof(Program))
+                {
+                  propertyInfo.SetValue(programs, convertedValue);
+                }
+                else if (modelType == typeof(ReportAndReclaim))
+                {
+                  propertyInfo.SetValue(reportAndReclaims, convertedValue);
+                }
+                else if (modelType == typeof(ScholarshipAndGrant))
+                {
+                  propertyInfo.SetValue(scholarshipandgrants, convertedValue);
+                }
               }
             }
           }
