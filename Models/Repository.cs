@@ -43,7 +43,7 @@ public class Repository : IRepository
     { "Program", "Program" },
     { "Dnr", "Dnr" },
     { "Organisation", "Organization" },
-    { "Rapportstatus", "ReportStatus" },
+    { "Rapportstatus", "ReportStatus" }, // ändra här
     { "Rapportstatusdatum", "ReportStatusDate" },
       {"Antal", "" },
     { "Förnamn", "FirstName" },
@@ -93,7 +93,7 @@ public class Repository : IRepository
       {"Rapporterat antal deltagare", "Reported_Participant_Number" },
       {"Kvalitetspoäng rapport", "QualityPoints_Report" },
       {"Datum för när rapportstatus är satt", "Date_when_ReportStatus_Set" },
-      {"Status rapport", "ReportStatus" },
+      {"Status rapport", "ReportStatus" },//gör förändring, samma som RapportStatus
       {"Återkrav inbetalt datum", "Reclaim_Paid_Date" },
       {"Återkrav summa", "Reclaim_Amount" },
       {"Återkrav inbetalt summa", "Reclaim_Paid_Amount" },
