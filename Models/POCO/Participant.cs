@@ -38,9 +38,6 @@ namespace WebApplication5.Models
     public int Approved_Staff_Number{ get; set; }
     public int Repported_Staff_Number{ get; set; }
     public int Accompanying_Support_Staff{ get; set; }
-    
-    
-
 
     public int ApplicationId { get; set; }
     

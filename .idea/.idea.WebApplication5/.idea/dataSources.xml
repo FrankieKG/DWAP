@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@raukpp.database.windows.net" uuid="35af2847-1c72-4011-8e47-6ff5fc338d1d">
+    <data-source source="LOCAL" name="@raukpp.database.windows.net" uuid="1e8e2b77-af1b-4a1f-b002-f4ed86576428">
       <driver-ref>azure.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
