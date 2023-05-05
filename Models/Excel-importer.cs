@@ -61,20 +61,25 @@
           ReportAndReclaim reportAndReclaims = new ReportAndReclaim();
           ScholarshipAndGrant scholarshipandgrants = new ScholarshipAndGrant();
 
-          foreach (var modelType in modelTypes)
+          foreach (var modelType in modelTypes) // Iterate through all POCO class types in the modelTypes list
           {
-            foreach (var propertyMapping in columnMappings)
+            foreach (var propertyMapping in columnMappings) // Iterate through all property-to-column mappings
             {
-              var propertyName = propertyMapping.Key;
-              var columnName = propertyMapping.Value;
+              var propertyName = propertyMapping.Key; // Get the property name from the mapping
+              var columnName = propertyMapping.Value; // Get the column name from the mapping
 
+              // Get the PropertyInfo object for the property in the current POCO class (modelType)
               var propertyInfo = modelType.GetProperty(propertyName);
+
+              // Get the cell value from the worksheet at the current row and column
               var cellValue = worksheet.Cells[row, GetColumnIndexByName(columnName)].Text;
 
-              if (propertyInfo != null)
+              if (propertyInfo != null) // Check if the property exists in the POCO class
               {
+                // Convert the cell value to the appropriate type for the property
                 var convertedValue = Convert.ChangeType(cellValue, propertyInfo.PropertyType);
 
+                // Depending on the current POCO class type, set the property value for the corresponding instance
                 if (modelType == typeof(ApplicationAndEvaluation))
                 {
                   propertyInfo.SetValue(applicationAndEvaluations, convertedValue);
