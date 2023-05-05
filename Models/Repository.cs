@@ -132,6 +132,7 @@ public class Repository : IRepository
       {"Beviljat antal personal", "" },
       {"Rapporterat antal personal", "" },
       {"Godkänt antal personal", "" },
+      
       {"Medföljande stödpersonal?", "" },
     { "Arkiverat datum", "Archived_Date" },
     { "Utbildningsprogram", "EducationalProgram"}
@@ -139,7 +140,4 @@ public class Repository : IRepository
 
         
     }
-    
-    
-    
 }
