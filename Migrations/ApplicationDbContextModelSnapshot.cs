@@ -145,16 +145,28 @@ namespace WebApplication5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipantId"));
 
+                    b.Property<int>("Accompanying_Support_Staff")
+                        .HasColumnType("int");
+
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
                     b.Property<int>("Applied_Participant_Number")
                         .HasColumnType("int");
 
+                    b.Property<int>("Applied_Staff_Number")
+                        .HasColumnType("int");
+
                     b.Property<int>("Applied_Staff_Teacher_Number")
                         .HasColumnType("int");
 
                     b.Property<int>("Applied_Student_Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Approved_Staff_Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Approved_Student_Number")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("BirthData")
@@ -171,6 +183,12 @@ namespace WebApplication5.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Granted_Participant_Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Granted_Staff_Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Granted_Student_Number")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -210,6 +228,9 @@ namespace WebApplication5.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Reported_Women_Teacher_Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Repported_Staff_Number")
                         .HasColumnType("int");
 
                     b.HasKey("ParticipantId");
@@ -394,11 +415,8 @@ namespace WebApplication5.Migrations
                     b.Property<DateTime>("Reclaim_Paid_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ReportStatus")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
                     b.Property<DateTime>("ReportStatusDate")
+                        .HasMaxLength(255)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Status_Report")

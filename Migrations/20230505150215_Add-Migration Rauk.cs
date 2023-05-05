@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication5.Migrations
 {
     /// <inheritdoc />
-    public partial class RaukDb : Migration
+    public partial class AddMigrationRauk : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -118,6 +118,8 @@ namespace WebApplication5.Migrations
                     Applied_Staff_Teacher_Number = table.Column<int>(type: "int", nullable: false),
                     Reported_Staff_Teacher_Number = table.Column<int>(type: "int", nullable: false),
                     Applied_Student_Number = table.Column<int>(type: "int", nullable: false),
+                    Approved_Student_Number = table.Column<int>(type: "int", nullable: false),
+                    Granted_Student_Number = table.Column<int>(type: "int", nullable: false),
                     Reported_Student_Number = table.Column<int>(type: "int", nullable: false),
                     Reported_Women_Student_Number = table.Column<int>(type: "int", nullable: false),
                     Reported_Men_Student_Number = table.Column<int>(type: "int", nullable: false),
@@ -127,6 +129,11 @@ namespace WebApplication5.Migrations
                     Reported_Men_SchoolLeader_Number = table.Column<int>(type: "int", nullable: false),
                     Reported_Women_AssociatedStaff_Number = table.Column<int>(type: "int", nullable: false),
                     Reported_Men_AssociatedStaff_Number = table.Column<int>(type: "int", nullable: false),
+                    Applied_Staff_Number = table.Column<int>(type: "int", nullable: false),
+                    Granted_Staff_Number = table.Column<int>(type: "int", nullable: false),
+                    Approved_Staff_Number = table.Column<int>(type: "int", nullable: false),
+                    Repported_Staff_Number = table.Column<int>(type: "int", nullable: false),
+                    Accompanying_Support_Staff = table.Column<int>(type: "int", nullable: false),
                     ApplicationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -181,8 +188,7 @@ namespace WebApplication5.Migrations
                 {
                     ReportId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ReportStatus = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ReportStatusDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ReportStatusDate = table.Column<DateTime>(type: "datetime2", maxLength: 255, nullable: false),
                     Date_when_ReportStatus_Set = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status_Report = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Reclaim_Paid_Date = table.Column<DateTime>(type: "datetime2", nullable: false),

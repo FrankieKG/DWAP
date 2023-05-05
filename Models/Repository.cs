@@ -135,6 +135,7 @@ public class Repository : IRepository
 };
 
     ExcelImporter import = new ExcelImporter(file, columnMappings);
+    
     context.ApplicationAndEvaluations.AddRange(import.ApplicationAndEvaluation);
     context.Organizations.AddRange(import.Organization);
     context.Participants.AddRange(import.Participant);
@@ -144,6 +145,6 @@ public class Repository : IRepository
     context.ReportAndReclaims.AddRange(import.ReportAndReclaim);
     context.ScholarshipAndGrants.AddRange(import.ScholarshipAndGrant);
 
-
-  }
+    context.SaveChanges();
+    }
 }
