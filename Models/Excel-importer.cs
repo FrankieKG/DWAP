@@ -35,7 +35,9 @@
         int rowCount = worksheet.Dimension.Rows;
         int colCount = worksheet.Dimension.Columns;
 
-        var headerCells = worksheet.Cells[1, 1, 1, colCount];
+        var headerCells = worksheet.Cells[1, 1, 1, colCount]; // Första två ettorna är start rad och column,
+                                                                       // 1 och colCount är första raden och sista kolumnet
+                                                                       
         var headers = headerCells.ToDictionary(x => x.Start.Column, x => x.Text);
 
         int GetColumnIndexByName(string columnName)
