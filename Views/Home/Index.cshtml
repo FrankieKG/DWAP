@@ -9,10 +9,10 @@
     <h2>File Upload</h2>
         
     <!-- Form to upload file -->
-    <form asp-controller="Home" asp-action="LoadData" enctype="multipart/form-data" method="post">
+    <form asp-controller="Home" asp-action="LoadData" enctype="multipart/form-data" multiple method="post">
         <div class="form-group">
             <label for="excelFile">Select an Excel file:</label>
-            <input type="file" name="excelFile" id="excelFile" accept=".xls,.xlsx" required>
+            <input type="file" name ="file" accept=".xlsx" required>
         </div>
         <button type="submit">Upload</button>
     </form>

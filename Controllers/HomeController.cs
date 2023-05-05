@@ -18,14 +18,20 @@ namespace WebApplication5.Controllers
       return View();
     }
     
-    public ViewResult Mobilitetsstatistik()
+    [HttpPost]
+    public async Task<IActionResult> LoadData(IFormFile file)
     {
-      return View(Mobilitetsstatistik);
-    }
 
-    public void LoadData(IFormFile file)
-    {
-      repo.ReadFile(file);
+        if(file != null)
+        {
+            await repo.ReadFile(file);
+        }
+        else
+        {
+            return BadRequest("File can't be read");
+        }
+
+            return RedirectToAction("Index", "Home");
     }
     
     
