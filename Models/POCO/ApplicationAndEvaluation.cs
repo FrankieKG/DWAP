@@ -6,7 +6,6 @@ namespace WebApplication5.Models
   public class ApplicationAndEvaluation
   {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ApplicationId { get; set; }
     
     [Required]
@@ -32,6 +31,5 @@ namespace WebApplication5.Models
     public float QualityPoints_Report { get; set; }
     public int OrganizationId { get; set; }
     public int ProgramId { get; set; }
-
   }
 }

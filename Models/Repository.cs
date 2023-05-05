@@ -43,7 +43,7 @@ public class Repository : IRepository
     { "Program", "Program" },
     { "Dnr", "Dnr" },
     { "Organisation", "Organization" },
-    { "Rapportstatus", "Status_Report" },
+    { "Rapportstatus", "Report_Status" },
     { "Rapportstatusdatum", "ReportStatusDate" },
       {"Antal", "" },
     { "Förnamn", "FirstName" },
@@ -84,16 +84,19 @@ public class Repository : IRepository
       {"Viktad kvalitetspoäng från budgeteringsvyn", "Weighted_QualityPoints_BudgetView" },
       {"Medelbetyg totalpoäng ansökan delat i antal bedömare hämtas från från budgeteringsvyn", "Average_TotalPoints_Application" },
       {"Poängdifferens från ansökningsvyn", "PointDifference_ApplicationView" },
+      
+      //Godkänt(Approved) eller beviljat(Granted)
       {"Totalt Sökt belopp", "Total_Applied_Amount" },
       {"Totalt Beviljat belopp", "Total_Granted_Amount" },
       {"Totalt Rapporterat belopp", "Total_Reported_Amount" },
       {"Totalt Godkänt belopp", "Total_Approved_Amount" },
+      
       {"Sökt antal deltagare", "Applied_Participant_Number" },
       {"Beviljat antal deltagare", "Granted_Participant_Number" },
       {"Rapporterat antal deltagare", "Reported_Participant_Number" },
       {"Kvalitetspoäng rapport", "QualityPoints_Report" },
       {"Datum för när rapportstatus är satt", "Date_when_ReportStatus_Set" },
-      {"Status rapport", "ReportStatus" },
+      {"Status rapport", "Report_Status" },
       {"Återkrav inbetalt datum", "Reclaim_Paid_Date" },
       {"Återkrav summa", "Reclaim_Amount" },
       {"Återkrav inbetalt summa", "Reclaim_Paid_Amount" },
@@ -113,21 +116,26 @@ public class Repository : IRepository
       {"Viktad medelpoäng", "Weighted_AveragePoints" },
       {"Medelbetyg", "AverageRating" },
       {"Poängdifferens", "PointDifference" },
+      
+      //Godkänt(Approved) eller beviljat(Granted)
       {"Totalt sökt belopp", "Total_Applied_Amount" },
       {"Totalt beviljat belopp", "Total_Granted_Amount" },
       {"Totalt rapporterat belopp", "Total_Reported_Amount" },
       {"Totalt godkänt rapporterat belopp", "Total_Approved_Amount" },
+      
+      //Godkänt(Approved) eller beviljat(Granted)
       {"Sökt belopp extramedel", "Applied_Amount_ExtraFunds" },
       {"Beviljat belopp extramedel", "Granted_Amount_ExtraFunds" },
       {"Rapporterat belopp extramedel", "Reported_Amount_ExtraFunds" },
       {"Godkänt/justerat belopp extramedel", "Approved_Adjusted_Amount_ExtraFunds" },
+      
+      //Godkänt(Approved) eller beviljat(Granted)
       {"Sökt antal elever", "Applied_Student_Number" },
-      
       {"Beviljat antal elever", "" },
-      
       {"Rapporterat antal elever", "Reported_Student_Number" },
-      
       {"Godkänt antal elever", "" },
+      
+      //Godkänt(Approved) eller beviljat(Granted)
       {"Sökt antal personal", "" },
       {"Beviljat antal personal", "" },
       {"Rapporterat antal personal", "" },
@@ -137,8 +145,7 @@ public class Repository : IRepository
     { "Arkiverat datum", "Archived_Date" },
     { "Utbildningsprogram", "EducationalProgram"}
 };
-    
-    
+
         
     }
 }
