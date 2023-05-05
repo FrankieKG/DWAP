@@ -133,6 +133,8 @@ public class Repository : IRepository
     {"Arkiverat datum", "Archived_Date" }, 
     {"Utbildningsprogram", "EducationalProgram"}
 };
+
+    ExcelImporter import = new ExcelImporter(file, columnMappings);
     
     }
 }
