@@ -16,6 +16,11 @@
 
     public Excel_importer(string filePath, Dictionary<string, string> columnMappings)
     {
+      List<Type> modelTypes = new List<Type>
+      {
+        typeof(ApplicationAndEvaluation), typeof(Organization), typeof(Participant), typeof(Payment), typeof(PreviousApplication), typeof(Program), typeof(ReportAndReclaim), typeof(ScholarshipAndGrant)
+      };
+
      
       ApplicationAndEvaluation = new List<ApplicationAndEvaluation>();
       Organization = new List<Organization>(); 
@@ -56,21 +61,36 @@
           ReportAndReclaim reportAndReclaims = new ReportAndReclaim();
           ScholarshipAndGrant scholarshipandgrants = new ScholarshipAndGrant();
 
-          foreach (var propertyMapping in columnMappings)
+          foreach (var modelType in modelTypes)
           {
-            var propertyName = propertyMapping.Key;
-            var columnName = propertyMapping.Value;
-
-            var propertyInfo = typeof(ApplicationAndEvaluation).GetProperty(propertyName);
-            var cellValue = worksheet.Cells[row, GetColumnIndexByName(columnName)].Text;
-
-            if (propertyInfo != null)
+            foreach (var propertyMapping in columnMappings)
             {
-              var convertedValue = Convert.ChangeType(cellValue, propertyInfo.PropertyType);
-              propertyInfo.SetValue(applicationAndEvaluations, convertedValue);
+              var propertyName = propertyMapping.Key;
+              var columnName = propertyMapping.Value;
+
+              var propertyInfo = modelType.GetProperty(propertyName);
+              var cellValue = worksheet.Cells[row, GetColumnIndexByName(columnName)].Text;
+
+              if (propertyInfo != null)
+              {
+                var convertedValue = Convert.ChangeType(cellValue, propertyInfo.PropertyType);
+
+                if (modelType == typeof(ApplicationAndEvaluation))
+                {
+                  propertyInfo.SetValue(applicationAndEvaluations, convertedValue);
+                }
+                else if (modelType == typeof(Organization))
+                {
+                  propertyInfo.SetValue(organizations, convertedValue);
+                }
+                else if (modelType == typeof(Participant))
+                {
+                  propertyInfo.SetValue(participants, convertedValue);
+                }
+                // ... other conditions for other POCO classes
+              }
             }
           }
-
           ApplicationAndEvaluation.Add(applicationAndEvaluations);
           Organization.Add(organizations);
           Participant.Add(participants);
