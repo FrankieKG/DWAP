@@ -22,26 +22,12 @@ namespace WebApplication5.Controllers
     {
       return View(Mobilitetsstatistik);
     }
-    
-    public ViewResult Partnerskap()
+
+    public void LoadData(IFormFile file)
     {
-      return View(Partnerskap);
+      repo.ReadFile(file);
     }
     
-    public ViewResult Programstatistik()
-    {
-      return View(Programstatistik);
-    }
-    
-    public IActionResult Praktik()
-    {
-      return View(Praktik);
-    }
-    
-    public IActionResult Privacy()
-    {
-      return View();
-    }
     
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
