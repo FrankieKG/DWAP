@@ -16,12 +16,19 @@
 
     public ExcelImporter(IFormFile file, Dictionary<string, string> columnMappings)
     {
-            _ = StartExcelReading(file, columnMappings);
+        StartExcelReading(file, columnMappings);
+    }
+
+
+    private async Task Begin()
+    {
+        
     }
     
-
-    async Task StartExcelReading(IFormFile file, Dictionary<string, string> columnMappings)
+    private async Task StartExcelReading(IFormFile file, Dictionary<string, string> columnMappings)
     {
+        
+        
       List<Type> modelTypes = new List<Type>
       {
         typeof(ApplicationAndEvaluation),
@@ -45,7 +52,7 @@
 
         using (var stream = new MemoryStream())
         {
-            await file.CopyToAsync(stream);
+            file.CopyToAsync(stream);
 
             using (ExcelPackage package = new ExcelPackage(stream))
             {
