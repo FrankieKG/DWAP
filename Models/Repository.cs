@@ -22,17 +22,7 @@ public class Repository : IRepository
     {
       this.context = context;
     }
-    
-    
-    public List<ApplicationAndEvaluation> ApplicationAndEvaluation { get; set; }
-    public List<Organization> Organization { get; set; }
-    public List<Participant> Participant { get; set; }
-    public List<Payment> Payment { get; set; }
-    public List<PreviousApplication> PreviousApplication { get; set; }
-    public List<Program> Program { get; set; }
-    public List<ReportAndReclaim> ReportAndReclaim { get; set; }
-    public List<ScholarshipAndGrant> ScholarshipAndGrant { get; set; }
-    
+
     
     public IQueryable<ApplicationAndEvaluation> ApplicationAndEvaluations => context.ApplicationAndEvaluations;
     public IQueryable<Organization> Organizations => context.Organizations;
@@ -42,6 +32,17 @@ public class Repository : IRepository
     public IQueryable<Program> Programs => context.Programs;
     public IQueryable<ReportAndReclaim> ReportAndReclaims => context.ReportAndReclaims;
     public IQueryable<ScholarshipAndGrant> ScholarshipAndGrants => context.ScholarshipAndGrants;
+
+
+    public List<ApplicationAndEvaluation> ApplicationAndEvaluation { get; set; }
+    public List<Organization> Organization { get; set; }
+    public List<Participant> Participant { get; set; }
+    public List<Payment> Payment { get; set; }
+    public List<PreviousApplication> PreviousApplication { get; set; }
+    public List<Program> Program { get; set; }
+    public List<ReportAndReclaim> ReportAndReclaim { get; set; }
+    public List<ScholarshipAndGrant> ScholarshipAndGrant { get; set; }
+
 
     //Läser data från en Excel-fil och konverterar den till fält i POCO-klasser:
     public async Task ReadFile(IFormFile file)
@@ -60,7 +61,7 @@ public class Repository : IRepository
     private async Task ExcelImporter(IFormFile file, Dictionary<string, string> columnMappings)
     {
         List<Type> modelTypes = new List<Type>
-      {
+        {
         typeof(ApplicationAndEvaluation),
         typeof(Organization),
         typeof(Participant),
@@ -69,7 +70,7 @@ public class Repository : IRepository
         typeof(Program),
         typeof(ReportAndReclaim),
         typeof(ScholarshipAndGrant)
-      };
+        };
 
         ApplicationAndEvaluation = new List<ApplicationAndEvaluation>();
         Organization = new List<Organization>();
@@ -90,8 +91,10 @@ public class Repository : IRepository
                 int rowCount = worksheet.Dimension.Rows;
                 int colCount = worksheet.Dimension.Columns;
 
-                var headerCells = worksheet.Cells[1, 1, 1, colCount]; // Första två ettorna är start rad och column,
-                                                                      // 1 och colCount är första raden och sista kolumnet
+                // Första två ettorna är startrad och -kolumn;
+                // tredje 1:an och colCount är första raden respektive sista kolumnen
+                var headerCells = worksheet.Cells[1, 1, 1, colCount]; 
+            
 
                 var headers = headerCells.ToDictionary(x => x.Start.Column, x => x.Text);
                 
