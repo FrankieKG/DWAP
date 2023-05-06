@@ -54,7 +54,6 @@ namespace WebApplication5.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FrameCaseNumber")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -119,7 +118,6 @@ namespace WebApplication5.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("OrganizationName")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -235,8 +233,6 @@ namespace WebApplication5.Migrations
 
                     b.HasKey("ParticipantId");
 
-                    b.HasIndex("ApplicationId");
-
                     b.ToTable("Participants");
                 });
 
@@ -301,8 +297,6 @@ namespace WebApplication5.Migrations
 
                     b.HasKey("PaymentId");
 
-                    b.HasIndex("ApplicationId");
-
                     b.ToTable("Payments");
                 });
 
@@ -356,7 +350,6 @@ namespace WebApplication5.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProgramName")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -424,8 +417,6 @@ namespace WebApplication5.Migrations
 
                     b.HasKey("ReportId");
 
-                    b.HasIndex("ApplicationId");
-
                     b.ToTable("ReportAndReclaims");
                 });
 
@@ -471,53 +462,7 @@ namespace WebApplication5.Migrations
 
                     b.HasKey("ScholarshipId");
 
-                    b.HasIndex("ApplicationId");
-
                     b.ToTable("ScholarshipAndGrants");
-                });
-
-            modelBuilder.Entity("WebApplication5.Models.Participant", b =>
-                {
-                    b.HasOne("WebApplication5.Models.ApplicationAndEvaluation", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Application");
-                });
-
-            modelBuilder.Entity("WebApplication5.Models.Payment", b =>
-                {
-                    b.HasOne("WebApplication5.Models.ApplicationAndEvaluation", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Application");
-                });
-
-            modelBuilder.Entity("WebApplication5.Models.ReportAndReclaim", b =>
-                {
-                    b.HasOne("WebApplication5.Models.ApplicationAndEvaluation", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Application");
-                });
-
-            modelBuilder.Entity("WebApplication5.Models.ScholarshipAndGrant", b =>
-                {
-                    b.HasOne("WebApplication5.Models.ApplicationAndEvaluation", "Application")
-                        .WithMany()
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Application");
                 });
 #pragma warning restore 612, 618
         }

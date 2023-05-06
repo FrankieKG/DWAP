@@ -118,6 +118,14 @@ public class Repository : IRepository
                             var columnName = propertyMapping.Value;
 
                             var propertyInfo = modelType.GetProperty(propertyName);
+
+                            // Check if column name is found in worksheet
+                            int colIndex = GetColumnIndexByName(worksheet, columnName);
+                            if (colIndex < 0)
+                            {
+                                continue;
+                            }
+
                             var cellValue = worksheet.Cells[row, GetColumnIndexByName(worksheet, columnName)].Text;
 
                             if (propertyInfo != null)

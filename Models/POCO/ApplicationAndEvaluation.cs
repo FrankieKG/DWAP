@@ -8,7 +8,6 @@ namespace WebApplication5.Models
     [Key]
     public int ApplicationId { get; set; }
     
-    [Required]
     [MaxLength(255)]
     public string FrameCaseNumber { get; set; }
     [MaxLength(255)]

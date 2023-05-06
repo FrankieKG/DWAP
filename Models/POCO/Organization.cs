@@ -6,9 +6,7 @@ namespace WebApplication5.Models
   public class Organization
   {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int OrganizationId { get; set; }
-    [Required]
     [MaxLength(255)]
     public string OrganizationName { get; set; }
     [MaxLength(255)]

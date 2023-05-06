@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApplication5.Migrations
 {
     /// <inheritdoc />
-    public partial class AddMigrationRauk : Migration
+    public partial class Rauk : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace WebApplication5.Migrations
                 {
                     ApplicationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FrameCaseNumber = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    FrameCaseNumber = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Dnr = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     ApplicationStatus = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Period = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
@@ -47,7 +47,7 @@ namespace WebApplication5.Migrations
                 {
                     OrganizationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrganizationName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    OrganizationName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     OrganizationEmail = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -60,44 +60,6 @@ namespace WebApplication5.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Organizations", x => x.OrganizationId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PreviousApplications",
-                columns: table => new
-                {
-                    ApplicationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PreviousDnr = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PreviousApplications", x => x.ApplicationId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Programs",
-                columns: table => new
-                {
-                    ProgramId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProgramName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    EducationLevel = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    EducationalProgram = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Semester = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Weeks = table.Column<int>(type: "int", nullable: false),
-                    PartnerSchool = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PartnerCity = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PartnerCountry = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PartnerSchool_EducationLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GrantArea = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    From_Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    To_Country = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Programs", x => x.ProgramId);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,12 +101,6 @@ namespace WebApplication5.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Participants", x => x.ParticipantId);
-                    table.ForeignKey(
-                        name: "FK_Participants_ApplicationAndEvaluations_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "ApplicationAndEvaluations",
-                        principalColumn: "ApplicationId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,12 +130,44 @@ namespace WebApplication5.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Payments", x => x.PaymentId);
-                    table.ForeignKey(
-                        name: "FK_Payments_ApplicationAndEvaluations_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "ApplicationAndEvaluations",
-                        principalColumn: "ApplicationId",
-                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PreviousApplications",
+                columns: table => new
+                {
+                    ApplicationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PreviousDnr = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreviousApplications", x => x.ApplicationId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Programs",
+                columns: table => new
+                {
+                    ProgramId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProgramName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    EducationLevel = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    EducationalProgram = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Semester = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Weeks = table.Column<int>(type: "int", nullable: false),
+                    PartnerSchool = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PartnerCity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PartnerCountry = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PartnerSchool_EducationLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GrantArea = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    From_Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    To_Country = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Programs", x => x.ProgramId);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,12 +192,6 @@ namespace WebApplication5.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ReportAndReclaims", x => x.ReportId);
-                    table.ForeignKey(
-                        name: "FK_ReportAndReclaims_ApplicationAndEvaluations_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "ApplicationAndEvaluations",
-                        principalColumn: "ApplicationId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -232,38 +214,15 @@ namespace WebApplication5.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ScholarshipAndGrants", x => x.ScholarshipId);
-                    table.ForeignKey(
-                        name: "FK_ScholarshipAndGrants_ApplicationAndEvaluations_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "ApplicationAndEvaluations",
-                        principalColumn: "ApplicationId",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Participants_ApplicationId",
-                table: "Participants",
-                column: "ApplicationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Payments_ApplicationId",
-                table: "Payments",
-                column: "ApplicationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ReportAndReclaims_ApplicationId",
-                table: "ReportAndReclaims",
-                column: "ApplicationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ScholarshipAndGrants_ApplicationId",
-                table: "ScholarshipAndGrants",
-                column: "ApplicationId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ApplicationAndEvaluations");
+
             migrationBuilder.DropTable(
                 name: "Organizations");
 
@@ -284,9 +243,6 @@ namespace WebApplication5.Migrations
 
             migrationBuilder.DropTable(
                 name: "ScholarshipAndGrants");
-
-            migrationBuilder.DropTable(
-                name: "ApplicationAndEvaluations");
         }
     }
 }

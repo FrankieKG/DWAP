@@ -9,7 +9,6 @@ namespace WebApplication5.Models
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProgramId { get; set; }
     
-    [Required]
     [MaxLength(255)]
     public string ProgramName { get; set; }
     
