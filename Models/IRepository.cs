@@ -12,5 +12,5 @@ public interface IRepository
     IQueryable<ScholarshipAndGrant> ScholarshipAndGrants { get; }
 
     Task ReadFile(IFormFile file);
-
+    void DictionaryGeneration();
 }

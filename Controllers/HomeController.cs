@@ -33,8 +33,15 @@ namespace WebApplication5.Controllers
 
             return RedirectToAction("Index", "Home");
     }
-    
-    
+
+    //Hjälpmetod för att generera Dictionary-fil. Ta bort den här innan vi överlämnar applikationen:
+    public void Dictionary()
+    {
+        repo.DictionaryGeneration();
+    }
+
+
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

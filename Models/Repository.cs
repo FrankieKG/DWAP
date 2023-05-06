@@ -10,6 +10,8 @@ using OfficeOpenXml;
 using OfficeOpenXml;
 using System.IO;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace WebApplication5.Models;
 
@@ -52,24 +54,24 @@ public class Repository : IRepository
         string jsonString = File.ReadAllText("dictionary.json");
 
         //Packar upp JSON-strängen till ett Dictionary:
-        Dictionary<string, string> columnMappings = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
+        Dictionary<string, (string, Type)> columnMappings = JsonConvert.DeserializeObject<Dictionary<string, (string, Type)>>(jsonString);
 
         await ExcelImporter(file, columnMappings);
     }
 
 
-    private async Task ExcelImporter(IFormFile file, Dictionary<string, string> columnMappings)
+    private async Task ExcelImporter(IFormFile file, Dictionary<string, (string, Type)> columnMappings)
     {
-        List<Type> modelTypes = new List<Type>
+        Dictionary<Type, object> modelInstances = new Dictionary<Type, object>
         {
-        typeof(ApplicationAndEvaluation),
-        typeof(Organization),
-        typeof(Participant),
-        typeof(Payment),
-        typeof(PreviousApplication),
-        typeof(Program),
-        typeof(ReportAndReclaim),
-        typeof(ScholarshipAndGrant)
+            { typeof(ApplicationAndEvaluation), new ApplicationAndEvaluation() },
+            { typeof(Organization), new Organization() },
+            { typeof(Participant), new Participant() },
+            { typeof(Payment), new Payment() },
+            { typeof(PreviousApplication), new PreviousApplication() },
+            { typeof(Program), new Program() },
+            { typeof(ReportAndReclaim), new ReportAndReclaim() },
+            { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
         };
 
         ApplicationAndEvaluation = new List<ApplicationAndEvaluation>();
@@ -91,13 +93,10 @@ public class Repository : IRepository
                 int rowCount = worksheet.Dimension.Rows;
                 int colCount = worksheet.Dimension.Columns;
 
-                // Första två ettorna är startrad och -kolumn;
-                // tredje 1:an och colCount är första raden respektive sista kolumnen
-                var headerCells = worksheet.Cells[1, 1, 1, colCount]; 
-            
+                // Matchar kolumnnamn i Excelfilen mot Dictionary-values och returnerar en lista med rätt
+                // kolumnnamn för tabellerna i databasen:
+                Dictionary<string, Type> HeaderProperties = GetHeaderProperties(worksheet, columnMappings);
 
-                var headers = headerCells.ToDictionary(x => x.Start.Column, x => x.Text);
-                
                 for (int row = 2; row <= rowCount; row++) // Börjar på rad 2 för att hoppa över rubrikerna
                 {
                     ApplicationAndEvaluation applicationAndEvaluations = new ApplicationAndEvaluation();
@@ -109,105 +108,207 @@ public class Repository : IRepository
                     ReportAndReclaim reportAndReclaims = new ReportAndReclaim();
                     ScholarshipAndGrant scholarshipandgrants = new ScholarshipAndGrant();
 
-                    foreach (var modelType in modelTypes)
+
+                    //Snabb felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
+                    CheckIfColumnsMatch(HeaderProperties, colCount);
+
+
+                    for (int col = 1; col <= colCount; col++)
                     {
+                        //Kolumnnamnet i databasen som ska skrivas till:
+                        var colName = HeaderProperties.ElementAt(col-1).Key.ToString();
 
-                        foreach (var propertyMapping in columnMappings)
+                        //Datat i den aktuella cellen:
+                        var cellValue = worksheet.Cells[row, col].Value;
+                        string cellData = cellValue != null ? cellValue.ToString() : string.Empty;
+
+
+                        foreach (var model in modelInstances)
                         {
-                            var propertyName = propertyMapping.Key;
-                            var columnName = propertyMapping.Value;
-
-                            var propertyInfo = modelType.GetProperty(propertyName);
-
-                            // Check if column name is found in worksheet
-                            int colIndex = GetColumnIndexByName(worksheet, columnName);
-                            if (colIndex < 0)
+                            var modelType = model.Key;
+                            var modelInstance = model.Value;
+                            
+                            if (HeaderProperties.ElementAt(col - 1).Value == modelType)
                             {
-                                continue;
-                            }
 
-                            var cellValue = worksheet.Cells[row, GetColumnIndexByName(worksheet, columnName)].Text;
+                                PropertyInfo prop = modelType.GetProperty(colName);
 
-                            if (propertyInfo != null)
-                            {
-                                var convertedValue = Convert.ChangeType(cellValue, propertyInfo.PropertyType);
+                                //HÄRUNDER SMÄLLER DET
+                                //Prop är tydligen alltid null, men fan vet varför asså
 
-                                if (modelType == typeof(ApplicationAndEvaluation))
+                                if (prop != null)
                                 {
-                                    propertyInfo.SetValue(applicationAndEvaluations, convertedValue);
+                                    
+                                    //Konverterar celldata för att matcha tabelldatan:
+                                    var value = Convert.ChangeType(cellData, prop.PropertyType);
+                                    prop.SetValue(modelInstance, value);
                                 }
-                                else if (modelType == typeof(Organization))
+                                else
                                 {
-                                    propertyInfo.SetValue(organizations, convertedValue);
-                                }
-                                else if (modelType == typeof(Participant))
-                                {
-                                    propertyInfo.SetValue(participants, convertedValue);
-                                }
-                                else if (modelType == typeof(Payment))
-                                {
-                                    propertyInfo.SetValue(payments, convertedValue);
-                                }
-                                else if (modelType == typeof(PreviousApplication))
-                                {
-                                    propertyInfo.SetValue(previousApplications, convertedValue);
-                                }
-                                else if (modelType == typeof(Program))
-                                {
-                                    propertyInfo.SetValue(programs, convertedValue);
-                                }
-                                else if (modelType == typeof(ReportAndReclaim))
-                                {
-                                    propertyInfo.SetValue(reportAndReclaims, convertedValue);
-                                }
-                                else if (modelType == typeof(ScholarshipAndGrant))
-                                {
-                                    propertyInfo.SetValue(scholarshipandgrants, convertedValue);
+                                    Console.WriteLine("The class does not have such an attribute");
                                 }
                             }
                         }
                     }
-
-                    ApplicationAndEvaluation.Add(applicationAndEvaluations);
-                    Organization.Add(organizations);
-                    Participant.Add(participants);
-                    Payment.Add(payments);
-                    PreviousApplication.Add(previousApplications);
-                    Program.Add(programs);
-                    ReportAndReclaim.Add(reportAndReclaims);
-                    ScholarshipAndGrant.Add(scholarshipandgrants);
                 }
             }
-        }
-        
-        context.ApplicationAndEvaluations.AddRange(ApplicationAndEvaluation);
-        context.Organizations.AddRange(Organization);
-        context.Participants.AddRange(Participant);
-        context.Payments.AddRange(Payment);
-        context.PreviousApplications.AddRange(PreviousApplication);
-        context.Programs.AddRange(Program);
-        context.ReportAndReclaims.AddRange(ReportAndReclaim);
-        context.ScholarshipAndGrants.AddRange(ScholarshipAndGrant);
+            context.ApplicationAndEvaluations.AddRange(ApplicationAndEvaluation);
+            context.Organizations.AddRange(Organization);
+            context.Participants.AddRange(Participant);
+            context.Payments.AddRange(Payment);
+            context.PreviousApplications.AddRange(PreviousApplication);
+            context.Programs.AddRange(Program);
+            context.ReportAndReclaims.AddRange(ReportAndReclaim);
+            context.ScholarshipAndGrants.AddRange(ScholarshipAndGrant);
 
-        context.SaveChanges();
+            context.SaveChanges();
+        }
     }
-    
-    /**
-     * Hjälpmetod för att plocka ut kolumnnamn:
-     */
-    int GetColumnIndexByName(ExcelWorksheet worksheet, string columnName)
+
+
+    private void CheckIfColumnsMatch(Dictionary<string, Type> HeaderProperties, int colCount)
     {
-        for (int col = 1; col <= worksheet.Dimension.End.Column; col++)
+        if (HeaderProperties.Count < colCount)
         {
-            if (worksheet.Cells[1, col].Text.Trim().ToLower() == columnName.Trim().ToLower())
+            // Felmeddelande:
+            throw new Exception($"HeaderProperties has {HeaderProperties.Count} items, but col is {colCount}");
+        }
+    }
+
+
+    private Dictionary<string, Type> GetHeaderProperties(ExcelWorksheet worksheet, Dictionary<string, (string, Type)> columnMappings)
+    {
+        ExcelRange headerCells = worksheet.Cells[1, 1, 1, worksheet.Dimension.Columns];
+        List<string> columnNames = headerCells.Select(cell => cell.Value?.ToString().Trim()).ToList();
+
+        Dictionary<string, Type> headerProperties = new Dictionary<string, Type>();
+        foreach (string columnName in columnNames)
+        {
+            if (columnMappings.TryGetValue(columnName, out var mapping))
             {
-                return col;
+                headerProperties[columnName] = mapping.Item2;
+            }
+            else
+            {
+                throw new Exception("Column " + columnName + " mismatch");
             }
         }
-        
-        // Returnerar negativt om en kolumn inte kan hittas:
-        return -1;
+
+
+        return headerProperties;
     }
 
-    
+
+
+
+
+
+
+
+    public void DictionaryGeneration()
+    {
+
+        Dictionary<string, (string, Type)> columnMappings = new Dictionary<string, (string, Type)>
+        {
+            { "Period", ("Period", typeof(ApplicationAndEvaluation)) },
+            { "Perioddatum", ("PeriodDate", typeof(ApplicationAndEvaluation)) },
+            { "Ramärendenummer", ("FrameCaseNumber", typeof(ApplicationAndEvaluation)) },
+            {"Ansökansstatus", ("ApplicationStatus", typeof(ApplicationAndEvaluation)) },
+            { "Dnr", ("Dnr", typeof(ApplicationAndEvaluation)) },
+            {"Tema", ("Theme", typeof(ApplicationAndEvaluation)) },
+            {"Typ av utbyte", ("Exchange_Type", typeof(ApplicationAndEvaluation)) },
+            {"Viktad kvalitetspoäng från budgeteringsvyn", ("Weighted_QualityPoints_BudgetView", typeof(ApplicationAndEvaluation)) },
+            {"Medelbetyg totalpoäng ansökan delat i antal bedömare hämtas från från budgeteringsvyn", ("Average_TotalPoints_Application", typeof(ApplicationAndEvaluation)) },
+            {"Poängdifferens från ansökningsvyn", ("PointDifference_ApplicationView", typeof(ApplicationAndEvaluation)) },
+            {"Kvalitetspoäng rapport", ("QualityPoints_Report", typeof(ApplicationAndEvaluation)) },
+            {"Viktad medelpoäng", ("Weighted_AveragePoints", typeof(ApplicationAndEvaluation)) },
+            {"Medelbetyg", ("AverageRating", typeof(ApplicationAndEvaluation)) },
+            {"Poängdifferens", ("PointDifference", typeof(ApplicationAndEvaluation)) },
+            {"Arkiverat datum", ("Archived_Date", typeof(ApplicationAndEvaluation)) },
+            { "Organisation", ("OrganizationName", typeof(Organization)) },
+            {"Organisationsepost", ("OrganizationEmail", typeof(Organization)) },
+            {"Postnummer", ("PostalCode", typeof(Organization)) },
+            {"Ort", ("City", typeof(Organization)) },
+            {"Kommun", ("Municipality", typeof(Organization)) },
+            {"Län", ("County", typeof(Organization)) },
+            {"Kontoinnehavare", ("AccountHolder", typeof(Organization)) },
+            {"Organisationsnummer", ("OrganizationNumber", typeof(Organization)) },
+            {"Plus/bankgiro", ("Plus_Bankgiro", typeof(Organization)) },
+            {"Organisations epost", ("OrganizationEmail", typeof(Organization)) },
+            { "Rapportstatus", ("Report_Status", typeof(ReportAndReclaim)) },
+            { "Rapportstatusdatum", ("ReportStatusDate", typeof(ReportAndReclaim)) },
+            {"Datum för när rapportstatus är satt", ("Date_when_ReportStatus_Set", typeof(ReportAndReclaim)) },
+            {"Status rapport", ("Status_Report", typeof(ReportAndReclaim)) },
+            {"Återkrav inbetalt datum", ("Reclaim_Paid_Date", typeof(ReportAndReclaim)) },
+            {"Återkrav summa", ("Reclaim_Amount", typeof(ReportAndReclaim)) },
+            {"Återkrav inbetalt summa", ("Reclaim_Paid_Amount", typeof(ReportAndReclaim)) },
+            { "Förnamn", ("FirstName", typeof(Participant)) },
+            { "Efternamn", ("LastName", typeof(Participant)) },
+            { "Födelsedata", ("BirthData", typeof(Participant)) },
+            { "Kön", ("Gender", typeof(Participant)) },
+            { "Land", ("Country", typeof(Participant)) },
+            { "Nivå", ("Level", typeof(Participant)) },
+            {"Sökt antal personal/lärare", ("Applied_Staff_Teacher_Number", typeof(Participant)) },
+            {"Rapporterat antal personal/lärare", ("Reported_Staff_Teacher_Number", typeof(Participant)) },
+            {"Sökt antal elever", ("Applied_Student_Number", typeof(Participant)) },
+            {"Rapporterat antal kvinnor (elev)", ("Reported_Women_Student_Number", typeof(Participant)) },
+            {"Rapporterat antal män (elev)", ("Reported_Men_Student_Number", typeof(Participant)) },
+            {"Rapporterat antal kvinnor (lärare)", ("Reported_Women_Teacher_Number", typeof(Participant)) },
+            {"Rapporterat antal män (lärare)", ("Reported_Men_Teacher_Number", typeof(Participant)) },
+            {"Rapporterat antal kvinnor (skolledare)", ("Reported_Women_SchoolLeader_Number", typeof(Participant)) },
+            {"Rapporterat antal män (skolledare)", ("Reported_Men_SchoolLeader_Number", typeof(Participant)) },
+            {"Rapporterat antal kvinnor (associerad personal)", ("Reported_Women_AssociatedStaff_Number", typeof(Participant)) },
+            {"Rapporterat antal män (associerad personal)", ("Reported_Men_AssociatedStaff_Number", typeof(Participant)) },
+            {"Beviljat antal elever", ("Granted_Student_Number", typeof(Participant)) },
+            {"Rapporterat antal elever", ("Reported_Student_Number", typeof(Participant)) },
+            {"Godkänt antal elever", ("Approved_Student_Number", typeof(Participant)) },
+            {"Sökt antal personal", ("Applied_Staff_Number", typeof(Participant)) },
+            {"Beviljat antal personal", ("Granted_Staff_Number", typeof(Participant)) },
+            {"Rapporterat antal personal", ("Repported_Staff_Number", typeof(Participant)) },
+            {"Godkänt antal personal", ("Approved_Staff_Number", typeof(Participant)) },
+            {"Medföljande stödpersonal?", ("Accompanying_Support_Staff", typeof(Participant)) },
+            {"Sökt antal deltagare", ("Applied_Participant_Number", typeof(Participant)) },
+            {"Beviljat antal deltagare", ("Granted_Participant_Number", typeof(Participant)) },
+            {"Rapporterat antal deltagare", ("Reported_Participant_Number", typeof(Participant)) },
+            { "Program", ("ProgramName", typeof(Program)) },
+            { "Termin", ("Semester", typeof(Program)) },
+            { "Ämne", ("Subject", typeof(Program)) },
+            { "Veckor", ("Weeks", typeof(Program)) },
+            {"Bidragsområde", ("GrantArea", typeof(Program)) },
+            {"Från land", ("From_Country", typeof(Program)) },
+            {"Till land", ("To_Country", typeof(Program)) },
+            {"Partnerskola", ("PartnerSchool", typeof(Program)) },
+            {"Partnerort", ("PartnerCity", typeof(Program)) },
+            {"Partnerland", ("PartnerCountry", typeof(Program)) },
+            {"Utbildningsnivå", ("EducationLevel", typeof(Program)) },
+            {"Utbildningsnivå partnerskola", ("PartnerSchool_EducationLevel", typeof(Program)) },
+            {"Utbildningsprogram", ("EducationalProgram", typeof(Program)) },
+            {"Sökt År/månad", ("Applied_Year_Month", typeof(ScholarshipAndGrant)) },
+            {"Rapporterat år/månad", ("Reported_Year_Month", typeof(ScholarshipAndGrant)) },
+            {"Sökt antal dagar", ("Applied_Number_Of_Days", typeof(ScholarshipAndGrant)) },
+            {"Rapporterat antal dagar", ("Reported_Number_Of_Days", typeof(ScholarshipAndGrant)) },
+            {"Projekt", ("Project", typeof(ScholarshipAndGrant)) },
+            {"Projektår", ("ProjectYear", typeof(ScholarshipAndGrant)) },
+            {"Antal", ("NumberOfGrantedScholarships", typeof(ScholarshipAndGrant)) },
+            {"Totalt Sökt belopp", ("Total_Applied_Amount", typeof(Payment)) },
+            {"Totalt Beviljat belopp", ("Total_Granted_Amount", typeof(Payment)) },
+            {"Totalt Rapporterat belopp", ("Total_Reported_Amount", typeof(Payment)) },
+            {"Totalt Godkänt belopp", ("Total_Approved_Amount", typeof(Payment)) },
+            {"Utbetalning", ("PaymentAmount", typeof(Payment)) },
+            {"Totalt sökt belopp", ("Total_Applied_Amount", typeof(Payment)) },
+            {"Totalt beviljat belopp", ("Total_Granted_Amount", typeof(Payment)) },
+            {"Totalt rapporterat belopp", ("Total_Reported_Amount", typeof(Payment)) },
+            {"Totalt godkänt rapporterat belopp", ("Total_Approved_Amount", typeof(Payment)) },
+            {"Sökt belopp extramedel", ("Applied_Amount_ExtraFunds", typeof(Payment)) },
+            {"Beviljat belopp extramedel", ("Granted_Amount_ExtraFunds", typeof(Payment)) },
+            {"Rapporterat belopp extramedel", ("Reported_Amount_ExtraFunds", typeof(Payment)) },
+            {"Godkänt/justerat belopp extramedel", ("Approved_Adjusted_Amount_ExtraFunds", typeof(Payment)) }
+        };
+
+
+        string jsonString = JsonConvert.SerializeObject(columnMappings);
+        File.WriteAllText("dictionary.json", jsonString);
+    }
+
+
 }
