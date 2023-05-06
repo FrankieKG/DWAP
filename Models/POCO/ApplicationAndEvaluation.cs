@@ -16,7 +16,7 @@ namespace WebApplication5.Models
     public string ApplicationStatus { get; set; }
     [MaxLength(255)]
     public string Period { get; set; }
-    public DateTime PeriodDate { get; set; }
+    public string PeriodDate { get; set; }
     public DateTime Archived_Date { get; set; }
     public string Accompanying_SupportStaff { get; set; }
     public string Theme { get; set; }

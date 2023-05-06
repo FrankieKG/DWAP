@@ -37,7 +37,7 @@ namespace WebApplication5.Controllers
     //Hjälpmetod för att generera Dictionary-fil. Ta bort den här innan vi överlämnar applikationen:
     public void Dictionary()
     {
-        repo.DictionaryGeneration();
+        repo.GenerateNewDictionary();
     }
 
 

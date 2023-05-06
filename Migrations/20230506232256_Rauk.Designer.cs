@@ -12,7 +12,7 @@ using WebApplication5.Models;
 namespace WebApplication5.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230506092254_Rauk")]
+    [Migration("20230506232256_Rauk")]
     partial class Rauk
     {
         /// <inheritdoc />
@@ -67,8 +67,8 @@ namespace WebApplication5.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTime>("PeriodDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PeriodDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("PointDifference")
                         .HasColumnType("real");
@@ -250,53 +250,53 @@ namespace WebApplication5.Migrations
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<float>("Applied_AdminGrant")
-                        .HasColumnType("real");
+                    b.Property<int?>("Applied_AdminGrant")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Applied_Amount_ExtraFunds")
-                        .HasColumnType("real");
+                    b.Property<int?>("Applied_Amount_ExtraFunds")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Applied_Amount_Scholarships")
-                        .HasColumnType("real");
+                    b.Property<int?>("Applied_Amount_Scholarships")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Applied_AuditGrant")
-                        .HasColumnType("real");
+                    b.Property<int?>("Applied_AuditGrant")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Approved_Adjusted_Amount_ExtraFunds")
-                        .HasColumnType("real");
+                    b.Property<int?>("Approved_Adjusted_Amount_ExtraFunds")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Approved_Amount_Scholarships")
-                        .HasColumnType("real");
+                    b.Property<int?>("Approved_Amount_Scholarships")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Granted_AdminGrant")
-                        .HasColumnType("real");
+                    b.Property<int?>("Granted_AdminGrant")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Granted_Amount_ExtraFunds")
-                        .HasColumnType("real");
+                    b.Property<int?>("Granted_Amount_ExtraFunds")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Granted_Amount_Scholarships")
-                        .HasColumnType("real");
+                    b.Property<int?>("Granted_Amount_Scholarships")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Granted_AuditGrant")
-                        .HasColumnType("real");
+                    b.Property<int?>("Granted_AuditGrant")
+                        .HasColumnType("int");
 
-                    b.Property<float>("PaymentAmount")
-                        .HasColumnType("real");
+                    b.Property<int?>("PaymentAmount")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Reported_Amount_ExtraFunds")
-                        .HasColumnType("real");
+                    b.Property<int?>("Reported_Amount_ExtraFunds")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Total_Applied_Amount")
-                        .HasColumnType("real");
+                    b.Property<int?>("Total_Applied_Amount")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Total_Approved_Amount")
-                        .HasColumnType("real");
+                    b.Property<int?>("Total_Approved_Amount")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Total_Granted_Amount")
-                        .HasColumnType("real");
+                    b.Property<int?>("Total_Granted_Amount")
+                        .HasColumnType("int");
 
-                    b.Property<float>("Total_Reported_Amount")
-                        .HasColumnType("real");
+                    b.Property<int?>("Total_Reported_Amount")
+                        .HasColumnType("int");
 
                     b.HasKey("PaymentId");
 
