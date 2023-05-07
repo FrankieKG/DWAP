@@ -38,7 +38,7 @@ public class Repository : IRepository
     public IQueryable<ReportAndReclaim> ReportAndReclaims => context.ReportAndReclaims;
     public IQueryable<ScholarshipAndGrant> ScholarshipAndGrants => context.ScholarshipAndGrants;
 
-
+    //Listset för att spara till databasen:
     public List<ApplicationAndEvaluation> ApplicationAndEvaluationList { get; set; }
     public List<Organization> OrganizationList { get; set; }
     public List<Participant> ParticipantList { get; set; }
@@ -47,16 +47,6 @@ public class Repository : IRepository
     public List<Program> ProgramList { get; set; }
     public List<ReportAndReclaim> ReportAndReclaimList { get; set; }
     public List<ScholarshipAndGrant> ScholarshipAndGrantList { get; set; }
-
-    ApplicationAndEvaluation applicationAndEvaluations = new ApplicationAndEvaluation();
-    Organization organizations = new Organization();
-    Participant participants = new Participant();
-    Payment payments = new Payment();
-    PreviousApplication previousApplications = new PreviousApplication();
-    Program programs = new Program();
-    ReportAndReclaim reportAndReclaims = new ReportAndReclaim();
-    ScholarshipAndGrant scholarshipandgrants = new ScholarshipAndGrant();
-
 
 
     //Läser data från en Excel-fil och konverterar den till fält i POCO-klasser:
@@ -75,6 +65,7 @@ public class Repository : IRepository
 
     private async Task ExcelImporter(IFormFile file, Dictionary<string, (string, Type)> columnMappings)
     {
+        //Initialisering:
         ApplicationAndEvaluationList = new List<ApplicationAndEvaluation>();
         OrganizationList = new List<Organization>();
         ParticipantList = new List<Participant>();
@@ -138,7 +129,7 @@ public class Repository : IRepository
                                 if (prop != null)
                                 {
                                     var propType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
-                                    var propValue = FormatCellValue(propType, cellData, colName);
+                                    var propValue = FormatCellValue(propType, cellData, colName, row, col);
                                     prop.SetValue(modelInstance, propValue);
                                 }
                             }
@@ -184,9 +175,14 @@ public class Repository : IRepository
     }
 
 
-    private object FormatCellValue(Type propType, string cellData, string colName)
+    private object FormatCellValue(Type propType, string cellData, string colName, int row, int col)
     {
-        Console.WriteLine($"Formatting cell data: {cellData} to type: {propType.Name} in column: {colName}");
+        //Meddelande som kan användas för felsökning av NULL-värden osv
+        //Här ser vi vilken data som skrivs till vilken kolumn i databasen,
+        //vad kolumnen heter i Excel-filen och vilken rad och vilket kolumnnummer på den raden
+
+        //Vi skulle kunna logga detta på något vis i den färdiga applikationen, det hade varit snyggt
+        Console.WriteLine($"Formatting cell data: {cellData} to type: {propType.Name} in column: {colName} on row {row}, column {col}" );
 
         switch (Type.GetTypeCode(propType))
         {
