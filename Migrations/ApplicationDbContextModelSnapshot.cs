@@ -37,13 +37,13 @@ namespace WebApplication5.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTime>("Archived_Date")
+                    b.Property<DateTime?>("Archived_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<float>("AverageRating")
+                    b.Property<float?>("AverageRating")
                         .HasColumnType("real");
 
-                    b.Property<float>("Average_TotalPoints_Application")
+                    b.Property<float?>("Average_TotalPoints_Application")
                         .HasColumnType("real");
 
                     b.Property<string>("Dnr")
@@ -67,25 +67,25 @@ namespace WebApplication5.Migrations
                     b.Property<string>("PeriodDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("PointDifference")
+                    b.Property<float?>("PointDifference")
                         .HasColumnType("real");
 
-                    b.Property<float>("PointDifference_ApplicationView")
+                    b.Property<float?>("PointDifference_ApplicationView")
                         .HasColumnType("real");
 
                     b.Property<int>("ProgramId")
                         .HasColumnType("int");
 
-                    b.Property<float>("QualityPoints_Report")
-                        .HasColumnType("real");
+                    b.Property<int?>("QualityPoints_Report")
+                        .HasColumnType("int");
 
                     b.Property<string>("Theme")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Weighted_AveragePoints")
+                    b.Property<float?>("Weighted_AveragePoints")
                         .HasColumnType("real");
 
-                    b.Property<float>("Weighted_QualityPoints_BudgetView")
+                    b.Property<float?>("Weighted_QualityPoints_BudgetView")
                         .HasColumnType("real");
 
                     b.HasKey("ApplicationId");
@@ -143,31 +143,31 @@ namespace WebApplication5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipantId"));
 
-                    b.Property<int>("Accompanying_Support_Staff")
+                    b.Property<int?>("Accompanying_Support_Staff")
                         .HasColumnType("int");
 
                     b.Property<int>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Applied_Participant_Number")
+                    b.Property<int?>("Applied_Participant_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Applied_Staff_Number")
+                    b.Property<int?>("Applied_Staff_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Applied_Staff_Teacher_Number")
+                    b.Property<int?>("Applied_Staff_Teacher_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Applied_Student_Number")
+                    b.Property<int?>("Applied_Student_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Approved_Staff_Number")
+                    b.Property<int?>("Approved_Staff_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Approved_Student_Number")
+                    b.Property<int?>("Approved_Student_Number")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BirthData")
+                    b.Property<DateTime?>("BirthData")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Country")
@@ -180,13 +180,13 @@ namespace WebApplication5.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Granted_Participant_Number")
+                    b.Property<int?>("Granted_Participant_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Granted_Staff_Number")
+                    b.Property<int?>("Granted_Staff_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Granted_Student_Number")
+                    b.Property<int?>("Granted_Student_Number")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -195,40 +195,40 @@ namespace WebApplication5.Migrations
                     b.Property<string>("Level")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Reported_Men_AssociatedStaff_Number")
+                    b.Property<int?>("Reported_Men_AssociatedStaff_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Men_SchoolLeader_Number")
+                    b.Property<int?>("Reported_Men_SchoolLeader_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Men_Student_Number")
+                    b.Property<int?>("Reported_Men_Student_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Men_Teacher_Number")
+                    b.Property<int?>("Reported_Men_Teacher_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Participant_Number")
+                    b.Property<int?>("Reported_Participant_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Staff_Teacher_Number")
+                    b.Property<int?>("Reported_Staff_Teacher_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Student_Number")
+                    b.Property<int?>("Reported_Student_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Women_AssociatedStaff_Number")
+                    b.Property<int?>("Reported_Women_AssociatedStaff_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Women_SchoolLeader_Number")
+                    b.Property<int?>("Reported_Women_SchoolLeader_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Women_Student_Number")
+                    b.Property<int?>("Reported_Women_Student_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Women_Teacher_Number")
+                    b.Property<int?>("Reported_Women_Teacher_Number")
                         .HasColumnType("int");
 
-                    b.Property<int>("Repported_Staff_Number")
+                    b.Property<int?>("Repported_Staff_Number")
                         .HasColumnType("int");
 
                     b.HasKey("ParticipantId");
@@ -362,7 +362,7 @@ namespace WebApplication5.Migrations
                     b.Property<string>("To_Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Weeks")
+                    b.Property<int?>("Weeks")
                         .HasColumnType("int");
 
                     b.HasKey("ProgramId");
@@ -378,37 +378,37 @@ namespace WebApplication5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReportId"));
 
-                    b.Property<int>("ApplicationId")
+                    b.Property<int?>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date_when_ReportStatus_Set")
+                    b.Property<DateTime?>("Date_when_ReportStatus_Set")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("NumberOfReportedAbortedScholarships")
+                    b.Property<int?>("NumberOfReportedAbortedScholarships")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumberOfReportedCompletedScholarships")
+                    b.Property<int?>("NumberOfReportedCompletedScholarships")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumberOfReportedNotAwardedScholarships")
+                    b.Property<int?>("NumberOfReportedNotAwardedScholarships")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumberOfReportedScholarships")
+                    b.Property<int?>("NumberOfReportedScholarships")
                         .HasColumnType("int");
 
-                    b.Property<float>("Reclaim_Amount")
-                        .HasColumnType("real");
+                    b.Property<int?>("Reclaim_Amount")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("Reclaim_Created_Date")
+                    b.Property<DateTime?>("Reclaim_Created_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<float>("Reclaim_Paid_Amount")
-                        .HasColumnType("real");
+                    b.Property<int?>("Reclaim_Paid_Amount")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("Reclaim_Paid_Date")
+                    b.Property<DateTime?>("Reclaim_Paid_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ReportStatusDate")
+                    b.Property<DateTime?>("ReportStatusDate")
                         .HasMaxLength(255)
                         .HasColumnType("datetime2");
 
@@ -428,19 +428,19 @@ namespace WebApplication5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScholarshipId"));
 
-                    b.Property<int>("ApplicationId")
+                    b.Property<int?>("ApplicationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Applied_Number_Of_Days")
+                    b.Property<int?>("Applied_Number_Of_Days")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Applied_Year_Month")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Applied_Year_Month")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberOfAppliedScholarships")
+                    b.Property<int?>("NumberOfAppliedScholarships")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumberOfGrantedScholarships")
+                    b.Property<int?>("NumberOfGrantedScholarships")
                         .HasColumnType("int");
 
                     b.Property<string>("PreviousApplication_Dnr")
@@ -451,14 +451,14 @@ namespace WebApplication5.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("ProjectYear")
+                    b.Property<int?>("ProjectYear")
                         .HasColumnType("int");
 
-                    b.Property<int>("Reported_Number_Of_Days")
+                    b.Property<int?>("Reported_Number_Of_Days")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Reported_Year_Month")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Reported_Year_Month")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ScholarshipId");
 

@@ -17,7 +17,7 @@ namespace WebApplication5.Models
     public string EducationalProgram { get; set; }
     public string Subject { get; set; }
     public string Semester { get; set; }
-    public int Weeks { get; set; }
+    public int? Weeks { get; set; }
     public string PartnerSchool { get; set; }
     public string PartnerCity { get; set; }
     public string PartnerCountry { get; set; }

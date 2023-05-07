@@ -13,6 +13,8 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Globalization;
+using System.Collections;
 
 namespace WebApplication5.Models;
 
@@ -37,14 +39,24 @@ public class Repository : IRepository
     public IQueryable<ScholarshipAndGrant> ScholarshipAndGrants => context.ScholarshipAndGrants;
 
 
-    public List<ApplicationAndEvaluation> ApplicationAndEvaluation { get; set; }
-    public List<Organization> Organization { get; set; }
-    public List<Participant> Participant { get; set; }
-    public List<Payment> Payment { get; set; }
-    public List<PreviousApplication> PreviousApplication { get; set; }
-    public List<Program> Program { get; set; }
-    public List<ReportAndReclaim> ReportAndReclaim { get; set; }
-    public List<ScholarshipAndGrant> ScholarshipAndGrant { get; set; }
+    public List<ApplicationAndEvaluation> ApplicationAndEvaluationList { get; set; }
+    public List<Organization> OrganizationList { get; set; }
+    public List<Participant> ParticipantList { get; set; }
+    public List<Payment> PaymentList { get; set; }
+    public List<PreviousApplication> PreviousApplicationList { get; set; }
+    public List<Program> ProgramList { get; set; }
+    public List<ReportAndReclaim> ReportAndReclaimList { get; set; }
+    public List<ScholarshipAndGrant> ScholarshipAndGrantList { get; set; }
+
+    ApplicationAndEvaluation applicationAndEvaluations = new ApplicationAndEvaluation();
+    Organization organizations = new Organization();
+    Participant participants = new Participant();
+    Payment payments = new Payment();
+    PreviousApplication previousApplications = new PreviousApplication();
+    Program programs = new Program();
+    ReportAndReclaim reportAndReclaims = new ReportAndReclaim();
+    ScholarshipAndGrant scholarshipandgrants = new ScholarshipAndGrant();
+
 
 
     //Läser data från en Excel-fil och konverterar den till fält i POCO-klasser:
@@ -63,26 +75,14 @@ public class Repository : IRepository
 
     private async Task ExcelImporter(IFormFile file, Dictionary<string, (string, Type)> columnMappings)
     {
-        Dictionary<Type, object> modelInstances = new Dictionary<Type, object>
-        {
-            { typeof(ApplicationAndEvaluation), new ApplicationAndEvaluation() },
-            { typeof(Organization), new Organization() },
-            { typeof(Participant), new Participant() },
-            { typeof(Payment), new Payment() },
-            { typeof(PreviousApplication), new PreviousApplication() },
-            { typeof(Program), new Program() },
-            { typeof(ReportAndReclaim), new ReportAndReclaim() },
-            { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
-        };
-
-        ApplicationAndEvaluation = new List<ApplicationAndEvaluation>();
-        Organization = new List<Organization>();
-        Participant = new List<Participant>();
-        Payment = new List<Payment>();
-        PreviousApplication = new List<PreviousApplication>();
-        Program = new List<Program>();
-        ReportAndReclaim = new List<ReportAndReclaim>();
-        ScholarshipAndGrant = new List<ScholarshipAndGrant>();
+        ApplicationAndEvaluationList = new List<ApplicationAndEvaluation>();
+        OrganizationList = new List<Organization>();
+        ParticipantList = new List<Participant>();
+        PaymentList = new List<Payment>();
+        PreviousApplicationList = new List<PreviousApplication>();
+        ProgramList = new List<Program>();
+        ReportAndReclaimList = new List<ReportAndReclaim>();
+        ScholarshipAndGrantList = new List<ScholarshipAndGrant>();
 
         using (var stream = new MemoryStream())
         {
@@ -98,21 +98,22 @@ public class Repository : IRepository
                 // kolumnnamn för tabellerna i databasen:
                 Dictionary<string, Type> HeaderProperties = GetHeaderProperties(worksheet, columnMappings);
 
-
-
                 for (int row = 2; row <= rowCount; row++) // Börjar på rad 2 för att hoppa över rubrikerna
                 {
-                    ApplicationAndEvaluation applicationAndEvaluations = new ApplicationAndEvaluation();
-                    Organization organizations = new Organization();
-                    Participant participants = new Participant();
-                    Payment payments = new Payment();
-                    PreviousApplication previousApplications = new PreviousApplication();
-                    Program programs = new Program();
-                    ReportAndReclaim reportAndReclaims = new ReportAndReclaim();
-                    ScholarshipAndGrant scholarshipandgrants = new ScholarshipAndGrant();
+                    Dictionary<Type, object> modelInstances = new Dictionary<Type, object>
+                    {
+                        { typeof(ApplicationAndEvaluation), new ApplicationAndEvaluation() },
+                        { typeof(Organization), new Organization() },
+                        { typeof(Participant), new Participant() },
+                        { typeof(Payment), new Payment() },
+                        { typeof(PreviousApplication), new PreviousApplication() },
+                        { typeof(Program), new Program() },
+                        { typeof(ReportAndReclaim), new ReportAndReclaim() },
+                        { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
+                    };
 
 
-                    //Snabb felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
+                    //Felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
                     CheckIfNoOfColumnsMatch(HeaderProperties, colCount);
 
 
@@ -125,80 +126,84 @@ public class Repository : IRepository
                         var cellValue = worksheet.Cells[row, col].Value;
                         string cellData = cellValue != null ? cellValue.ToString() : string.Empty;
 
-
                         foreach (var model in modelInstances)
                         {
                             var modelType = model.Key;
                             var modelInstance = model.Value;
-                            
+
                             if (HeaderProperties.ElementAt(col - 1).Value == modelType)
                             {
-
-                                var prop = modelType.GetProperty(colName);
+                                PropertyInfo prop = modelType.GetProperty(colName);
 
                                 if (prop != null)
                                 {
-                                    var value = Convert.ChangeType(cellData, prop.PropertyType);
-                                    prop.SetValue(modelInstance, value);
+                                    var propType = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+                                    var propValue = FormatCellValue(propType, cellData, colName);
+                                    prop.SetValue(modelInstance, propValue);
                                 }
                             }
                         }
                     }
-                    ApplicationAndEvaluation.Add(applicationAndEvaluations);
-                    Organization.Add(organizations);
-                    Participant.Add(participants);
-                    Payment.Add(payments);
-                    PreviousApplication.Add(previousApplications);
-                    Program.Add(programs);
-                    ReportAndReclaim.Add(reportAndReclaims);
-                    ScholarshipAndGrant.Add(scholarshipandgrants);
+
+                    AddObjectsToLists(modelInstances);
                 }
             }
-            context.ApplicationAndEvaluations.AddRange(ApplicationAndEvaluation);
-            context.Organizations.AddRange(Organization);
-            context.Participants.AddRange(Participant);
-            context.Payments.AddRange(Payment);
-            context.PreviousApplications.AddRange(PreviousApplication);
-            context.Programs.AddRange(Program);
-            context.ReportAndReclaims.AddRange(ReportAndReclaim);
-            context.ScholarshipAndGrants.AddRange(ScholarshipAndGrant);
+            context.ApplicationAndEvaluations.AddRange(ApplicationAndEvaluationList);
+            context.Organizations.AddRange(OrganizationList);
+            context.Participants.AddRange(ParticipantList);
+            context.Payments.AddRange(PaymentList);
+            context.PreviousApplications.AddRange(PreviousApplicationList);
+            context.Programs.AddRange(ProgramList);
+            context.ReportAndReclaims.AddRange(ReportAndReclaimList);
+            context.ScholarshipAndGrants.AddRange(ScholarshipAndGrantList);
 
             context.SaveChanges();
         }
     }
 
 
-    private object ConvertCellValue(string cellData, Type targetType)
+    private void AddObjectsToLists(Dictionary<Type, object> modelInstances)
     {
-        if (string.IsNullOrEmpty(cellData))
+        foreach (var model in modelInstances)
         {
-            return null;
-        }
+            var modelType = model.Key;
+            var modelInstance = model.Value;
 
-        switch (targetType.Name)
-        {
-            case "Int32":
-                if (int.TryParse(cellData, out int intValue))
+            PropertyInfo listProp = GetType().GetProperty(modelType.Name + "List");
+
+            if (listProp != null)
+            {
+                IList list = (IList)listProp.GetValue(this);
+
+                if (modelInstance != null)
                 {
-                    return intValue;
+                    list.Add(modelInstance);
                 }
-                break;
-            case "Double":
-                if (double.TryParse(cellData, out double doubleValue))
-                {
-                    return doubleValue;
-                }
-                break;
-            case "DateTime":
-                if (DateTime.TryParse(cellData, out DateTime dateTimeValue))
-                {
-                    return dateTimeValue;
-                }
-                break;
-            case "String":
-                return cellData;
+            }
         }
-        return null;
+    }
+
+
+    private object FormatCellValue(Type propType, string cellData, string colName)
+    {
+        Console.WriteLine($"Formatting cell data: {cellData} to type: {propType.Name} in column: {colName}");
+
+        switch (Type.GetTypeCode(propType))
+        {
+            case TypeCode.Int32:
+                int intValue;
+                return int.TryParse(cellData, NumberStyles.Any, CultureInfo.InvariantCulture, out intValue) ? intValue : null;
+            case TypeCode.DateTime:
+                if (string.IsNullOrWhiteSpace(cellData))
+                    return null;
+                DateTime dateValue;
+                return DateTime.TryParseExact(cellData, "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateValue) ? dateValue : null;
+            case TypeCode.Single:
+                float floatValue;
+                return float.TryParse(cellData, NumberStyles.Any, CultureInfo.InvariantCulture, out floatValue) ? floatValue : null;
+            default:
+                return Convert.ChangeType(cellData, propType, CultureInfo.InvariantCulture);
+        }
     }
 
 
@@ -206,7 +211,6 @@ public class Repository : IRepository
     {
         if (HeaderProperties.Count < colCount)
         {
-            // Felmeddelande:
             throw new Exception($"HeaderProperties has {HeaderProperties.Count} items, but col is {colCount}");
         }
     }
