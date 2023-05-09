@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Identity;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
-using OfficeOpenXml;
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -38,7 +37,10 @@ public class Repository : IRepository
     public IQueryable<ReportAndReclaim> ReportAndReclaims => context.ReportAndReclaims;
     public IQueryable<ScholarshipAndGrant> ScholarshipAndGrants => context.ScholarshipAndGrants;
 
-    //Listset för att spara till databasen:
+    /*
+     * Utkommenterad kod eftersom jag inte ser någon anledning till att dessa listor ska ligga
+     * som klassvariabler, men vill inte ta bort ifall databasmetoderna skulle gå sönder.
+     * 
     public List<ApplicationAndEvaluation> ApplicationAndEvaluationList { get; set; }
     public List<Organization> OrganizationList { get; set; }
     public List<Participant> ParticipantList { get; set; }
@@ -47,7 +49,7 @@ public class Repository : IRepository
     public List<Program> ProgramList { get; set; }
     public List<ReportAndReclaim> ReportAndReclaimList { get; set; }
     public List<ScholarshipAndGrant> ScholarshipAndGrantList { get; set; }
-
+    */
 
     //Läser data från en Excel-fil och konverterar den till fält i POCO-klasser:
     public async Task ReadFile(IFormFile file)
@@ -65,15 +67,17 @@ public class Repository : IRepository
 
     private async Task ExcelImporter(IFormFile file, Dictionary<string, (string, Type)> columnMappings)
     {
-        //Initialisering:
-        ApplicationAndEvaluationList = new List<ApplicationAndEvaluation>();
-        OrganizationList = new List<Organization>();
-        ParticipantList = new List<Participant>();
-        PaymentList = new List<Payment>();
-        PreviousApplicationList = new List<PreviousApplication>();
-        ProgramList = new List<Program>();
-        ReportAndReclaimList = new List<ReportAndReclaim>();
-        ScholarshipAndGrantList = new List<ScholarshipAndGrant>();
+        //Listset för att spara till databasen, nedflyttat från den utkommenterade koden i början av klassen:
+        //(det här borde vi mata in som en parameter i stället, precis som
+        //vi gör med dictionaryt, för en mer dynamisk lösning)
+        List<ApplicationAndEvaluation> ApplicationAndEvaluationList = new List<ApplicationAndEvaluation>();
+        List<Organization> OrganizationList = new List<Organization>();
+        List<Participant> ParticipantList = new List<Participant>();
+        List<Payment> PaymentList = new List<Payment>();
+        List<PreviousApplication> PreviousApplicationList = new List<PreviousApplication>();
+        List<Program> ProgramList = new List<Program>();
+        List<ReportAndReclaim> ReportAndReclaimList = new List<ReportAndReclaim>();
+        List<ScholarshipAndGrant> ScholarshipAndGrantList = new List<ScholarshipAndGrant>();
 
         using (var stream = new MemoryStream())
         {
@@ -91,6 +95,9 @@ public class Repository : IRepository
 
                 for (int row = 2; row <= rowCount; row++) // Börjar på rad 2 för att hoppa över rubrikerna
                 {
+                    //Dictionary med objekten vi ska 
+                    //(detta borde också vara ett beroende som tas in i metoden i stället för att hårdkodas,
+                    //så att man kan utöka det i framtiden utan att behöva gå in och ändra överallt)
                     Dictionary<Type, object> modelInstances = new Dictionary<Type, object>
                     {
                         { typeof(ApplicationAndEvaluation), new ApplicationAndEvaluation() },
@@ -117,13 +124,16 @@ public class Repository : IRepository
                         var cellValue = worksheet.Cells[row, col].Value;
                         string cellData = cellValue != null ? cellValue.ToString() : string.Empty;
 
+
                         foreach (var model in modelInstances)
                         {
                             var modelType = model.Key;
                             var modelInstance = model.Value;
 
                             if (HeaderProperties.ElementAt(col - 1).Value == modelType)
-                            {
+                            {                              
+
+
                                 PropertyInfo prop = modelType.GetProperty(colName);
 
                                 if (prop != null)
@@ -139,6 +149,7 @@ public class Repository : IRepository
                     AddObjectsToLists(modelInstances);
                 }
             }
+
             context.ApplicationAndEvaluations.AddRange(ApplicationAndEvaluationList);
             context.Organizations.AddRange(OrganizationList);
             context.Participants.AddRange(ParticipantList);
