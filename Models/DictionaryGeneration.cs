@@ -45,16 +45,11 @@ namespace WebApplication5.Models
                 {"Status rapport", ("Status_Report", typeof(ReportAndReclaim)) },
                 {"Återkrav inbetalt datum", ("Reclaim_Paid_Date", typeof(ReportAndReclaim)) },
                 {"Återkrav summa", ("Reclaim_Amount", typeof(ReportAndReclaim)) },
-
-
-                {"", ("Reclaim_Created_Date", typeof(ReportAndReclaim)) },
-                {"", ("NumberOfReportedScholarships", typeof(ReportAndReclaim)) },
-                {"", ("NumberOfReportedCompletedScholarships", typeof(ReportAndReclaim)) },
-                {"", ("NumberOfReportedAbortedScholarships", typeof(ReportAndReclaim)) },
-                {"", ("NumberOfReportedNotAwardedScholarships", typeof(ReportAndReclaim)) },
-                {"", ("ApplicationId", typeof(ReportAndReclaim)) },
-
-
+                {"Återkrav skapat datum", ("Reclaim_Created_Date", typeof(ReportAndReclaim)) },
+                {"Antal rapporterade stipendier", ("NumberOfReportedScholarships", typeof(ReportAndReclaim)) },
+                {"Antal rapporterade genomförda stipendier", ("NumberOfReportedCompletedScholarships", typeof(ReportAndReclaim)) },
+                {"Antal rapporterade avbrutna stipendier", ("NumberOfReportedAbortedScholarships", typeof(ReportAndReclaim)) },
+                {"Antal rapporterade ej utdelade stipendier", ("NumberOfReportedNotAwardedScholarships", typeof(ReportAndReclaim)) },
                 {"Återkrav inbetalt summa", ("Reclaim_Paid_Amount", typeof(ReportAndReclaim)) },
                 {"Förnamn", ("FirstName", typeof(Participant)) },
                 {"Efternamn", ("LastName", typeof(Participant)) },
