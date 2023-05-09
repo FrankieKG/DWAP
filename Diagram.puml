@@ -1,0 +1,204 @@
+@startuml
+class ApplicationAndEvaluation {
+    +ApplicationId: int
+    +FrameCaseNumber: string
+    +Dnr: string
+    +ApplicationStatus: string
+    +Period: string
+    +PeriodDate: string
+    +Archived_Date: DateTime?
+    +Accompanying_SupportStaff: string
+    +Theme: string
+    +Exchange_Type: string
+    +Weighted_QualityPoints_BudgetView: float?
+    +Average_TotalPoints_Application: float?
+    +PointDifference_ApplicationView: float?
+    +Weighted_AveragePoints: float?
+    +AverageRating: float?
+    +PointDifference: float?
+    +QualityPoints_Report: int?
+    +OrganizationId: int
+    +ProgramId: int
+}
+
+class Organization {
+    +OrganizationId: int
+    +OrganizationName: string
+    +OrganizationEmail: string
+    +PostalCode: string
+    +City: string
+    +Municipality: string
+    +County: string
+    +AccountHolder: string
+    +OrganizationNumber: string
+    +Plus_Bankgiro: string
+}
+
+class Participant {
+    +ParticipantId: int
+    +FirstName: string
+    +LastName: string
+    +BirthData: DateTime?
+    +Gender: string
+    +Country: string
+    +Level: string
+    +Applied_Participant_Number: int?
+    +Granted_Participant_Number: int?
+    +Reported_Participant_Number: int?
+    +Applied_Staff_Teacher_Number: int?
+    +Reported_Staff_Teacher_Number: int?
+    +Applied_Student_Number: int?
+    +Approved_Student_Number: int?
+    +Granted_Student_Number: int?
+    +Reported_Student_Number: int?
+    +Reported_Women_Student_Number: int?
+    +Reported_Men_Student_Number: int?
+    +Reported_Women_Teacher_Number: int?
+    +Reported_Men_Teacher_Number: int?
+    +Reported_Women_SchoolLeader_Number: int?
+    +Reported_Men_SchoolLeader_Number: int?
+    +Reported_Women_AssociatedStaff_Number: int?
+    +Reported_Men_AssociatedStaff_Number: int?
+    +Applied_Staff_Number: int?
+    +Granted_Staff_Number: int?
+    +Approved_Staff_Number: int?
+    +Repported_Staff_Number: int?
+    +Accompanying_Support_Staff: int?
+    +ApplicationId: int
+}
+
+class Payment {
+    +PaymentId: int
+    +PaymentAmount: int?
+    +Total_Applied_Amount: int?
+    +Total_Granted_Amount: int?
+    +Total_Reported_Amount: int?
+    +Total_Approved_Amount: int?
+    +Applied_Amount_ExtraFunds: int?
+    +Granted_Amount_ExtraFunds: int?
+    +Reported_Amount_ExtraFunds: int?
+    +Approved_Adjusted_Amount_ExtraFunds: int?
+    +Applied_AuditGrant: int?
+    +Granted_AuditGrant: int?
+    +Applied_AdminGrant: int?
+    +Granted_AdminGrant: int?
+    +Applied_Amount_Scholarships: int?
+    +Granted_Amount_Scholarships: int?
+    +Approved_Amount_Scholarships: int?
+    +ApplicationId: int
+}
+
+class Program {
+    +ProgramId: int
+    +ProgramName: string
+    +EducationLevel: string
+    +EducationalProgram: string
+    +Subject: string
+    +Semester: string
+    +Weeks: int?
+    +PartnerSchool: string
+    +PartnerCity: string
+    +PartnerCountry: string
+    +PartnerSchool_EducationLevel: string
+    +GrantArea: string
+    +From_Country: string
+    +To_Country: string
+}
+
+class ReportAndReclaim {
+    +ReportId: int
+    +ReportStatusDate: DateTime?
+    +Date_when_ReportStatus_Set: DateTime?
+    +Status_Report: string
+    +Reclaim_Paid_Date: DateTime?
+    +Reclaim_Amount: int?
+    +Reclaim_Paid_Amount: int?
+    +Reclaim_Created_Date: DateTime?
+    +NumberOfReportedScholarships: int?
+    +NumberOfReportedCompletedScholarships: int?
+    +NumberOfReportedAbortedScholarships: int?
+    +NumberOfReportedNotAwardedScholarships: int?
+    +ApplicationId: int?
+}
+
+class ScholarshipAndGrant {
+    +ScholarshipId: int
+    +PreviousApplication_Dnr: string
+    +Project: string
+    +ProjectYear: int?
+    +Applied_Year_Month: string
+    +Reported_Year_Month: string
+    +Applied_Number_Of_Days: int?
+    +Reported_Number_Of_Days: int?
+    +NumberOfAppliedScholarships: int?
+    +NumberOfGrantedScholarships: int?
+    +ApplicationId: int?
+}
+
+ApplicationAndEvaluation -- Participant
+ApplicationAndEvaluation -- Payment
+ApplicationAndEvaluation -- Program
+Organization -- ApplicationAndEvaluation
+ApplicationAndEvaluation -- ReportAndReclaim
+ApplicationAndEvaluation -- ScholarshipAndGrant
+
+interface IRepository {
+    +ApplicationAndEvaluations: IQueryable<ApplicationAndEvaluation>
+    +Organizations: IQueryable<Organization>
+    +Participants: IQueryable<Participant>
+    +Payments: IQueryable<Payment>
+    +PreviousApplications: IQueryable<PreviousApplication>
+    +Programs: IQueryable<Program>
+    +ReportAndReclaims: IQueryable<ReportAndReclaim>
+    +ScholarshipAndGrants: IQueryable<ScholarshipAndGrant>
+    +ReadFile(file: IFormFile): Task
+    +GenerateNewDictionary(): void
+}
+
+class Repository implements IRepository {
+    -context: ApplicationDbContext
+    +ApplicationAndEvaluations: IQueryable<ApplicationAndEvaluation>
+    +Organizations: IQueryable<Organization>
+    +Participants: IQueryable<Participant>
+    +Payments: IQueryable<Payment>
+    +PreviousApplications: IQueryable<PreviousApplication>
+    +Programs: IQueryable<Program>
+    +ReportAndReclaims: IQueryable<ReportAndReclaim>
+    +ScholarshipAndGrants: IQueryable<ScholarshipAndGrant>
+    +ReadFile(file: IFormFile): Task
+    +GenerateNewDictionary(): void
+}
+
+class ApplicationDbContext {
+    -options: DbContextOptions<ApplicationDbContext>
+    +ApplicationAndEvaluations: DbSet<ApplicationAndEvaluation>
+    +Organizations: DbSet<Organization>
+    +Participants: DbSet<Participant>
+    +Payments: DbSet<Payment>
+    +PreviousApplications: DbSet<PreviousApplication>
+    +Programs: DbSet<Program>
+    +ReportAndReclaims: DbSet<ReportAndReclaim>
+    +ScholarshipAndGrants: DbSet<ScholarshipAndGrant>
+}
+
+class DictionaryGeneration {
+    +DictionaryGeneration()
+    +GenerateDictionaryFile(): void
+}
+
+class ErrorViewModel {
+    - string? RequestId
+    - bool ShowRequestId
+}
+
+class HomeController {
+    - IRepository repo
+    + HomeController(IRepository)
+    + ViewResult Index()
+    + Task<IActionResult> LoadData(IFormFile)
+    + void Dictionary()
+    + IActionResult Error()
+    + IActionResult Privacy()
+}
+
+@enduml
