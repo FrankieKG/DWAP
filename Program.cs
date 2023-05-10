@@ -7,10 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IRepository, Repository>();
+
 builder.Services.AddDbContext <ApplicationDbContext>
 (
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+
 
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
