@@ -20,7 +20,7 @@ namespace WebApplication5.UnitTests
         {
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlServer("DefaultConnection")
+            .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Database=RaukDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False")
             .Options;
 
             context = new ApplicationDbContext(options);
