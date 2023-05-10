@@ -188,7 +188,7 @@ class DictionaryGeneration {
 
 class ErrorViewModel {
     - string? RequestId
-    - bool ShowRequestId
+    - bool ShowRequestId => !string.IsNullOrEmpty(RequestId)
 }
 
 class HomeController {
@@ -200,5 +200,4 @@ class HomeController {
     + IActionResult Error()
     + IActionResult Privacy()
 }
-
 @enduml
