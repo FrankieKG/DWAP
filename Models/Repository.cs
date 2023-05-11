@@ -37,10 +37,6 @@ public class Repository : IRepository
     public IQueryable<ReportAndReclaim> ReportAndReclaims => context.ReportAndReclaims;
     public IQueryable<ScholarshipAndGrant> ScholarshipAndGrants => context.ScholarshipAndGrants;
 
-    /*
-     * Utkommenterad kod eftersom jag inte ser någon anledning till att dessa listor ska ligga
-     * som klassvariabler, men vill inte ta bort ifall databasmetoderna skulle gå sönder.
-     * 
     public List<ApplicationAndEvaluation> ApplicationAndEvaluationList { get; set; }
     public List<Organization> OrganizationList { get; set; }
     public List<Participant> ParticipantList { get; set; }
@@ -49,7 +45,7 @@ public class Repository : IRepository
     public List<Program> ProgramList { get; set; }
     public List<ReportAndReclaim> ReportAndReclaimList { get; set; }
     public List<ScholarshipAndGrant> ScholarshipAndGrantList { get; set; }
-    */
+
 
     //Läser data från en Excel-fil och konverterar den till fält i POCO-klasser:
     public async Task ReadFile(IFormFile file)
@@ -67,17 +63,16 @@ public class Repository : IRepository
 
     private async Task ExcelImporter(IFormFile file, Dictionary<string, (string, Type)> columnMappings)
     {
-        //Listset för att spara till databasen, nedflyttat från den utkommenterade koden i början av klassen:
-        //(det här borde vi mata in som en parameter i stället, precis som
-        //vi gör med dictionaryt, för en mer dynamisk lösning)
-        List<ApplicationAndEvaluation> ApplicationAndEvaluationList = new List<ApplicationAndEvaluation>();
-        List<Organization> OrganizationList = new List<Organization>();
-        List<Participant> ParticipantList = new List<Participant>();
-        List<Payment> PaymentList = new List<Payment>();
-        List<PreviousApplication> PreviousApplicationList = new List<PreviousApplication>();
-        List<Program> ProgramList = new List<Program>();
-        List<ReportAndReclaim> ReportAndReclaimList = new List<ReportAndReclaim>();
-        List<ScholarshipAndGrant> ScholarshipAndGrantList = new List<ScholarshipAndGrant>();
+        
+        ApplicationAndEvaluationList = new List<ApplicationAndEvaluation>();
+        OrganizationList = new List<Organization>();
+        ParticipantList = new List<Participant>();
+        PaymentList = new List<Payment>();
+        PreviousApplicationList = new List<PreviousApplication>();
+        ProgramList = new List<Program>();
+        ReportAndReclaimList = new List<ReportAndReclaim>();
+        ScholarshipAndGrantList = new List<ScholarshipAndGrant>();
+
 
         using (var stream = new MemoryStream())
         {
@@ -95,9 +90,7 @@ public class Repository : IRepository
 
                 for (int row = 2; row <= rowCount; row++) // Börjar på rad 2 för att hoppa över rubrikerna
                 {
-                    //Dictionary med objekten vi ska 
-                    //(detta borde också vara ett beroende som tas in i metoden i stället för att hårdkodas,
-                    //så att man kan utöka det i framtiden utan att behöva gå in och ändra överallt)
+
                     Dictionary<Type, object> modelInstances = new Dictionary<Type, object>
                     {
                         { typeof(ApplicationAndEvaluation), new ApplicationAndEvaluation() },
@@ -109,7 +102,6 @@ public class Repository : IRepository
                         { typeof(ReportAndReclaim), new ReportAndReclaim() },
                         { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
                     };
-
 
                     //Felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
                     CheckIfNoOfColumnsMatch(HeaderProperties, colCount);
@@ -177,12 +169,37 @@ public class Repository : IRepository
             {
                 IList list = (IList)listProp.GetValue(this);
 
-                if (modelInstance != null)
+                if (HasNonDefaultProperties(modelInstance))
                 {
                     list.Add(modelInstance);
                 }
             }
         }
+    }
+
+
+    private bool HasNonDefaultProperties(object obj)
+    {
+        var type = obj.GetType();
+        var properties = type.GetProperties();
+
+        foreach (var prop in properties)
+        {
+            var defaultValue = prop.PropertyType.IsValueType ? Activator.CreateInstance(prop.PropertyType) : null;
+            var value = prop.GetValue(obj);
+
+            if (value == null)
+            {
+                continue;
+            }
+
+            if (!value.Equals(defaultValue))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 
@@ -247,10 +264,12 @@ public class Repository : IRepository
 
 
 
-    public void GenerateNewDictionary()
+    public void GenerateNewDictionaries()
     {
         DictionaryGeneration dictionary = new();
+        TypeObjectDictionaryGeneration dictionary2 = new();
     }
+
 
 
 }
