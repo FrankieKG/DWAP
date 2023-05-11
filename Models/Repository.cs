@@ -3,7 +3,6 @@ using System;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
@@ -19,15 +18,14 @@ namespace WebApplication5.Models;
 
 public class Repository : IRepository
 {
-
-    private readonly ApplicationDbContext context;
     
     public Repository(ApplicationDbContext context)
     {
       this.context = context;
     }
 
-    
+    private readonly ApplicationDbContext context;
+
     public IQueryable<ApplicationAndEvaluation> ApplicationAndEvaluations => context.ApplicationAndEvaluations;
     public IQueryable<Organization> Organizations => context.Organizations;
     public IQueryable<Participant> Participants => context.Participants;
@@ -52,7 +50,7 @@ public class Repository : IRepository
     {
 
         //Läser in en nedsparad JSON-sträng med Dictionary-data:
-        string jsonString = File.ReadAllText("dictionary.json");
+        string jsonString = File.ReadAllText("columnMappings.json");
 
         //Packar upp JSON-strängen till ett Dictionary:
         Dictionary<string, (string, Type)> columnMappings = JsonConvert.DeserializeObject<Dictionary<string, (string, Type)>>(jsonString);
@@ -102,6 +100,12 @@ public class Repository : IRepository
                         { typeof(ReportAndReclaim), new ReportAndReclaim() },
                         { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
                     };
+
+
+                    //Läser in och packar upp Dictionaryt med objekten:
+                    //string jsonString = File.ReadAllText("columnMappings.json");
+                    //Dictionary<Type, object> modelInstances = modelInstances = JsonConvert.DeserializeObject<Dictionary<Type, object>>(jsonString);
+
 
                     //Felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
                     CheckIfNoOfColumnsMatch(HeaderProperties, colCount);
@@ -266,8 +270,7 @@ public class Repository : IRepository
 
     public void GenerateNewDictionaries()
     {
-        DictionaryGeneration dictionary = new();
-        TypeObjectDictionaryGeneration dictionary2 = new();
+        DictionarySetup dictionary = new();
     }
 
 

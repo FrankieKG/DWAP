@@ -2,10 +2,10 @@
 
 namespace WebApplication5.Models
 {
-    public class DictionaryGeneration
+    public class DictionarySetup
     {
 
-        public DictionaryGeneration()
+        public DictionarySetup()
         {
             GenerateDictionaryFile();
         }
@@ -115,9 +115,23 @@ namespace WebApplication5.Models
             };
 
 
-            string jsonString = JsonConvert.SerializeObject(columnMappings);
-            File.WriteAllText("dictionary.json", jsonString);
-        }
+            Dictionary<Type, object> modelInstances = new Dictionary<Type, object>
+                    {
+                        { typeof(ApplicationAndEvaluation), new ApplicationAndEvaluation() },
+                        { typeof(Organization), new Organization() },
+                        { typeof(Participant), new Participant() },
+                        { typeof(Payment), new Payment() },
+                        { typeof(PreviousApplication), new PreviousApplication() },
+                        { typeof(Program), new Program() },
+                        { typeof(ReportAndReclaim), new ReportAndReclaim() },
+                        { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
+                    };
 
+            string jsonString = JsonConvert.SerializeObject(columnMappings);
+            File.WriteAllText("columnMappings.json", jsonString);
+
+            string jsonString2 = JsonConvert.SerializeObject(modelInstances);
+            File.WriteAllText("objectlist.json", jsonString2);
+        }
     }
 }
