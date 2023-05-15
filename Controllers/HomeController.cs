@@ -34,6 +34,11 @@ namespace WebApplication5.Controllers
             return RedirectToAction("Index", "Home");
     }
 
+    public ViewResult Success()
+    {
+        return View("FileReadSuccess");
+    }
+
     //Hjälpmetod för att generera Dictionary-fil. Ta bort den här innan vi överlämnar applikationen:
     public void Dictionary()
     {

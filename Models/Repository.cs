@@ -102,11 +102,6 @@ public class Repository : IRepository
                     };
 
 
-                    //Läser in och packar upp Dictionaryt med objekten:
-                    //string jsonString = File.ReadAllText("columnMappings.json");
-                    //Dictionary<Type, object> modelInstances = modelInstances = JsonConvert.DeserializeObject<Dictionary<Type, object>>(jsonString);
-
-
                     //Felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
                     CheckIfNoOfColumnsMatch(HeaderProperties, colCount);
 
