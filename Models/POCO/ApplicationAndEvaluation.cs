@@ -6,12 +6,10 @@ namespace WebApplication5.Models
   public class ApplicationAndEvaluation
   {
     [Key]
-    public int ApplicationId { get; set; }
-    
-    [MaxLength(255)]
-    public string FrameCaseNumber { get; set; }
     [MaxLength(255)]
     public string Dnr { get; set; }
+    [MaxLength(255)]
+    public string FrameCaseNumber { get; set; }
     [MaxLength(255)]
     public string ApplicationStatus { get; set; }
     [MaxLength(255)]
@@ -28,7 +26,5 @@ namespace WebApplication5.Models
     public float? AverageRating { get; set; }
     public float? PointDifference { get; set; }
     public int? QualityPoints_Report { get; set; }
-    public int OrganizationId { get; set; }
-    public int ProgramId { get; set; }
   }
 }

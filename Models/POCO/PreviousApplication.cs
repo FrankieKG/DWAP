@@ -6,8 +6,9 @@ namespace WebApplication5.Models
   public class PreviousApplication
   {
     [Key]
-    public int ApplicationId { get; set; }
-    public int PreviousDnr { get; set; }
-    
+    public string Dnr{ get; set; }
+
+    [Required]
+    public string PreviousDnr { get; set; }    
   }
 }

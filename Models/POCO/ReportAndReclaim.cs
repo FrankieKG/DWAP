@@ -19,7 +19,9 @@ namespace WebApplication5.Models
     public int? NumberOfReportedCompletedScholarships { get; set; }
     public int? NumberOfReportedAbortedScholarships { get; set; }
     public int? NumberOfReportedNotAwardedScholarships { get; set; }
-    public int? ApplicationId { get; set; }
+
+    [Required]
+    public string Dnr { get; set; }
   }
 
 }

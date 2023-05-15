@@ -6,6 +6,7 @@ namespace WebApplication5.Models
   public class Participant
   {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ParticipantId { get; set; }
     
     [MaxLength(255)]
@@ -38,6 +39,7 @@ namespace WebApplication5.Models
     public int? Repported_Staff_Number{ get; set; }
     public int? Accompanying_Support_Staff{ get; set; }
 
-    public int ApplicationId { get; set; }
+    [Required]
+    public string Dnr { get; set; }
   }
 }

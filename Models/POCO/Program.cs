@@ -25,5 +25,8 @@ namespace WebApplication5.Models
     public string GrantArea { get; set; }
     public string From_Country { get; set; }
     public string To_Country { get; set; }
+
+    [Required]
+    public string Dnr { get; set; }
   }
 }

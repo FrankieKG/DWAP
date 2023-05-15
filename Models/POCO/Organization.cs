@@ -7,6 +7,7 @@ namespace WebApplication5.Models
   {
     [Key]
     public int OrganizationId { get; set; }
+    
     [MaxLength(255)]
     public string OrganizationName { get; set; }
     [MaxLength(255)]
@@ -18,5 +19,8 @@ namespace WebApplication5.Models
     public string AccountHolder { get; set; }
     public string OrganizationNumber { get; set; }
     public string Plus_Bankgiro { get; set; }
-  }
+
+    [Required]
+    public string Dnr { get; set; }
+    }
 }
