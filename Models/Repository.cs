@@ -95,15 +95,15 @@ public class Repository : IRepository
                         { typeof(Organization), new Organization() },
                         { typeof(Participant), new Participant() },
                         { typeof(Payment), new Payment() },
-                        { typeof(PreviousApplication), new PreviousApplication() },
+                        //{ typeof(PreviousApplication), new PreviousApplication() },
                         { typeof(Program), new Program() },
                         { typeof(ReportAndReclaim), new ReportAndReclaim() },
                         { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
                     };
 
 
-                    //Felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
-                    CheckIfNoOfColumnsMatch(HeaderProperties, colCount);
+                    ////Felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
+                    //CheckIfNoOfColumnsMatch(HeaderProperties, colCount);
 
 
                     for (int col = 1; col <= colCount; col++)
@@ -121,10 +121,8 @@ public class Repository : IRepository
                             var modelType = model.Key;
                             var modelInstance = model.Value;
 
-                            if (HeaderProperties.ElementAt(col - 1).Value == modelType)
-                            {                              
-
-
+                            if (HeaderProperties.ElementAt(col - 1).Value == modelType || colName == "Dnr")
+                            {
                                 PropertyInfo prop = modelType.GetProperty(colName);
 
                                 if (prop != null)
@@ -136,7 +134,6 @@ public class Repository : IRepository
                             }
                         }
                     }
-
                     AddObjectsToLists(modelInstances);
                 }
             }
@@ -153,6 +150,8 @@ public class Repository : IRepository
             context.SaveChanges();
         }
     }
+
+
 
 
     private void AddObjectsToLists(Dictionary<Type, object> modelInstances)

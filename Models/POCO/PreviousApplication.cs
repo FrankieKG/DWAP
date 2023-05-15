@@ -9,6 +9,6 @@ namespace WebApplication5.Models
     public string Dnr{ get; set; }
 
     [Required]
-    public string PreviousDnr { get; set; }    
+    public string PreviousDnr { get; set; }
   }
 }

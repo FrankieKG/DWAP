@@ -9,7 +9,7 @@
     <h2>File Upload</h2>
         
     <!-- Form to upload file -->
-    <form asp-controller="Home" asp-action="LoadData" enctype="multipart/form-data" multiple method="post">
+        <form asp-controller="Home" asp-action="LoadData" enctype="multipart/form-data" multiple method="post">
         <div class="form-group">
             <label for="excelFile">Välj en Exel-fil att ladda upp:</label>
             <input type="file" name ="file" accept=".xlsx, .xls" required>

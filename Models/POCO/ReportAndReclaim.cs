@@ -5,8 +5,11 @@ namespace WebApplication5.Models
 {
   public class ReportAndReclaim
   {
+
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ReportId { get; set; }
+    
     [MaxLength(255)]
     public DateTime? ReportStatusDate { get; set; }
     public DateTime? Date_when_ReportStatus_Set { get; set; }

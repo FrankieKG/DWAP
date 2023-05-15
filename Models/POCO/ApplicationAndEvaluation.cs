@@ -6,8 +6,9 @@ namespace WebApplication5.Models
   public class ApplicationAndEvaluation
   {
     [Key]
-    [MaxLength(255)]
-    public string Dnr { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int ApplicationId { get; set; }
+
     [MaxLength(255)]
     public string FrameCaseNumber { get; set; }
     [MaxLength(255)]
@@ -26,5 +27,8 @@ namespace WebApplication5.Models
     public float? AverageRating { get; set; }
     public float? PointDifference { get; set; }
     public int? QualityPoints_Report { get; set; }
-  }
+
+    [Required]
+    public string Dnr { get; set; }
+    }
 }
