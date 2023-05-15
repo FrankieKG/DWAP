@@ -17,6 +17,7 @@ namespace WebApplication5.Models
                 {"Period", ("Period", typeof(ApplicationAndEvaluation)) },
                 {"Perioddatum", ("PeriodDate", typeof(ApplicationAndEvaluation)) },
                 {"Ramärendenummer", ("FrameCaseNumber", typeof(ApplicationAndEvaluation)) },
+                {"Ramärendenr", ("FrameCaseNumber", typeof(ApplicationAndEvaluation)) },
                 {"Ansökansstatus", ("ApplicationStatus", typeof(ApplicationAndEvaluation)) },
                 {"Dnr", ("Dnr", typeof(ApplicationAndEvaluation)) },
                 {"Tema", ("Theme", typeof(ApplicationAndEvaluation)) },
