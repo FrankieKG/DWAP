@@ -21,7 +21,7 @@ namespace WebApplication5.Models
     public string OrganizationNumber { get; set; }
     public string Plus_Bankgiro { get; set; }
 
-    
-    public int ApplicaationId { get; set; }
+    [Required]
+    public string Dnr { get; set; }
     }
 }

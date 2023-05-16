@@ -95,15 +95,15 @@ public class Repository : IRepository
                         { typeof(Organization), new Organization() },
                         { typeof(Participant), new Participant() },
                         { typeof(Payment), new Payment() },
-                        { typeof(PreviousApplication), new PreviousApplication() },
+                        //{ typeof(PreviousApplication), new PreviousApplication() },
                         { typeof(Program), new Program() },
                         { typeof(ReportAndReclaim), new ReportAndReclaim() },
                         { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
                     };
 
 
-                    ////Felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
-                    //CheckIfNoOfColumnsMatch(HeaderProperties, colCount);
+                    //Felkontroll för att vara säker på att kolumnerna i Excel finns i Dictionaryt:
+                    CheckIfNoOfColumnsMatch(HeaderProperties, colCount);
 
 
                     for (int col = 1; col <= colCount; col++)
@@ -183,6 +183,10 @@ public class Repository : IRepository
 
         foreach (var prop in properties)
         {
+            // Skip the Dnr property:
+            if (prop.Name == "Dnr")
+                continue;
+
             var defaultValue = prop.PropertyType.IsValueType ? Activator.CreateInstance(prop.PropertyType) : null;
             var value = prop.GetValue(obj);
 

@@ -27,6 +27,7 @@ namespace WebApplication5.Models
     public float? AverageRating { get; set; }
     public float? PointDifference { get; set; }
     public int? QualityPoints_Report { get; set; }
+    public string PreviousApplications { get; set; }
 
     [Required]
     public string Dnr { get; set; }
