@@ -95,7 +95,7 @@ public class Repository : IRepository
                         { typeof(Organization), new Organization() },
                         { typeof(Participant), new Participant() },
                         { typeof(Payment), new Payment() },
-                        //{ typeof(PreviousApplication), new PreviousApplication() },
+                        { typeof(PreviousApplication), new PreviousApplication() },
                         { typeof(Program), new Program() },
                         { typeof(ReportAndReclaim), new ReportAndReclaim() },
                         { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
