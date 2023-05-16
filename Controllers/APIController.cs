@@ -29,10 +29,5 @@ namespace WebApplication5.Controllers
 
             return new JsonResult(result);
         }
-
-
-
-
-
     }
 }

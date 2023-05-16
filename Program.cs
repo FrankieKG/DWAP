@@ -13,8 +13,6 @@ builder.Services.AddDbContext <ApplicationDbContext>
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-
-
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
 var app = builder.Build();

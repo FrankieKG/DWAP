@@ -20,7 +20,7 @@ namespace WebApplication5.Models
                 {"Ramärendenr", ("FrameCaseNumber", typeof(ApplicationAndEvaluation)) },
                 {"Ansökansstatus", ("ApplicationStatus", typeof(ApplicationAndEvaluation)) },
                 {"Dnr", ("Dnr", typeof(ApplicationAndEvaluation)) },
-                {"Diarienummer från tidigare ansökan", ("Dnr", typeof(ApplicationAndEvaluation)) },
+                {"Diarienummer från tidigare ansökan", ("PreviousDnr", typeof(PreviousApplication)) },
                 {"Tema", ("Theme", typeof(ApplicationAndEvaluation)) },
                 {"Typ av utbyte", ("Exchange_Type", typeof(ApplicationAndEvaluation)) },
                 {"Viktad kvalitetspoäng från budgeteringsvyn", ("Weighted_QualityPoints_BudgetView", typeof(ApplicationAndEvaluation)) },
