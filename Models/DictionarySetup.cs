@@ -105,6 +105,7 @@ namespace WebApplication5.Models
                 {"Totalt Beviljat belopp", ("Total_Granted_Amount", typeof(Payment)) },
                 {"Totalt Rapporterat belopp", ("Total_Reported_Amount", typeof(Payment)) },
                 {"Totalt Godkänt belopp", ("Total_Approved_Amount", typeof(Payment)) },
+                {"Totalt godkänt belopp", ("Total_Approved_Amount", typeof(Payment))},
                 {"Utbetalning", ("PaymentAmount", typeof(Payment)) },
                 {"Totalt sökt belopp", ("Total_Applied_Amount", typeof(Payment)) },
                 {"Totalt beviljat belopp", ("Total_Granted_Amount", typeof(Payment)) },
