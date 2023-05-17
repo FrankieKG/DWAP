@@ -66,6 +66,9 @@
                     $("#success-msg").show();
                     $("#progress-bar").width('0%'); // Reset the progress bar
                     $("#progress-bar").html('0%');
+
+                    // Clear the file input field
+                    $('#file').val('');
                 },
                 error: function(data){
                     // Handle error here
