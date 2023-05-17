@@ -64,12 +64,12 @@ namespace WebApplication5.Controllers
 
             var results = repo.GetAtlasPartnerskapDnr(dnr);
 
-            var jsonResult = new JsonResult(results, new JsonSerializerSettings
+            if(results == null)
             {
-                NullValueHandling = NullValueHandling.Ignore
-            });
+                return new JsonResult(NotFound());
+            }
 
-            return jsonResult;
+            return new JsonResult(results, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore});
         }
 
 
