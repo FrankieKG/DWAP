@@ -1,4 +1,6 @@
-﻿namespace WebApplication5.Models;
+﻿using WebApplication5.Models.Utilities;
+
+namespace WebApplication5.Models;
 
 public interface IRepository
 {
@@ -13,4 +15,6 @@ public interface IRepository
 
     Task ReadFile(IFormFile file);
     void GenerateNewDictionaries();
+
+    public List<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr);
 }

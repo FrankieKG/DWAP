@@ -13,6 +13,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Globalization;
 using System.Collections;
+using WebApplication5.Models.Utilities;
 
 namespace WebApplication5.Models;
 
@@ -45,6 +46,7 @@ public class Repository : IRepository
     public List<ScholarshipAndGrant> ScholarshipAndGrantList { get; set; }
 
 
+    #region Filinläsning
     //Läser data från en Excel-fil och konverterar den till fält i POCO-klasser:
     public async Task ReadFile(IFormFile file)
     {
@@ -262,15 +264,52 @@ public class Repository : IRepository
 
         return headerProperties;
     }
+    #endregion
 
 
 
+    #region API-Metoder
 
+
+
+    public List<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr)
+    {
+        var query = from ae in context.ApplicationAndEvaluations
+                    join p in context.Payments on ae.Dnr equals p.Dnr
+                    join pa in context.Participants on ae.Dnr equals pa.Dnr
+                    select new AtlasPartnerskapData
+                    {
+                        Period = ae.Period,
+                        ApplicationStatus = ae.ApplicationStatus,
+                        Total_Granted_Amount = p.Total_Granted_Amount,
+                        Total_Approved_Amount = p.Total_Approved_Amount,
+                        Granted_Participant_Number = pa.Granted_Participant_Number,
+                        Reported_Participant_Number = pa.Reported_Participant_Number,
+                        Reported_Women_Student_Number = pa.Reported_Women_Student_Number,
+                        Reported_Men_Student_Number = pa.Reported_Men_Student_Number,
+                        Reported_Women_Teacher_Number = pa.Reported_Women_Teacher_Number,
+                        Reported_Men_Teacher_Number = pa.Reported_Men_Teacher_Number,
+                        Reported_Women_SchoolLeader_Number = pa.Reported_Women_SchoolLeader_Number,
+                        Reported_Men_SchoolLeader_Number = pa.Reported_Men_SchoolLeader_Number,
+                        Reported_Women_AssociatedStaff_Number = pa.Reported_Women_AssociatedStaff_Number,
+                        Reported_Men_AssociatedStaff_Number = pa.Reported_Men_AssociatedStaff_Number
+                    };
+
+        var results = query.ToList();
+
+        return results;
+    }
+
+    #endregion
+
+
+
+    #region Hjälpmetoder
     public void GenerateNewDictionaries()
     {
         DictionarySetup dictionary = new();
     }
-
+    #endregion
 
 
 }
