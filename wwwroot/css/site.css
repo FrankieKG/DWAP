@@ -16,7 +16,7 @@ body {
     box-sizing: border-box;
     background-color: #fff;
     border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
@@ -47,7 +47,7 @@ label {
 input[type="file"] {
     width: 100%;
     font-size: 14px;
-    color: purple;
+    color: rebeccapurple;
 }
 
 input[type=file]::file-selector-button{
@@ -58,7 +58,7 @@ button[type="submit"] {
     width: 100%;
     padding: 10px;
     border: none;
-    background-color: mediumpurple;
+    background-color: rebeccapurple;
     color: #fff;
     font-size: 16px;
     font-weight: bold;
@@ -67,7 +67,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: purple;
+    background-color: mediumpurple;
 }
 
 .progress {
@@ -75,5 +75,11 @@ button[type="submit"]:hover {
     margin-top: 5%;
 }
 .progress-bar {
-    background-color: purple !important;
+    background-color: rebeccapurple !important;
+}
+
+.purple-bar {
+    height: 50px;
+    background-color: rebeccapurple;
+    width: 100%;
 }

@@ -7,6 +7,9 @@
 </head>
 <body>
 
+    <!-- Purple Bar -->
+<div class="purple-bar"></div>
+
 <div class="container">
     <h2>File Upload</h2>
         
@@ -42,13 +45,21 @@
             $.ajax({
                 xhr: function() {
                     var xhr = new window.XMLHttpRequest();
-                    xhr.upload.addEventListener("progress", function(evt) {
-                        if (evt.lengthComputable) {
-                            var percentComplete = ((evt.loaded / evt.total) * 100);
-                            $("#progress-bar").width(percentComplete + '%');
-                            $("#progress-bar").html(percentComplete+'%');
-                        }
-                    }, false);
+xhr.upload.addEventListener("progress", function(evt) {
+    if (evt.lengthComputable) {
+        var percentComplete = 0;
+        var interval = setInterval(function() {
+            if (percentComplete >= 100) {
+                clearInterval(interval);
+            } else {
+                percentComplete++;
+                $("#progress-bar").width(percentComplete + '%');
+                $("#progress-bar").html(percentComplete+'%');
+            }
+        }, 30); // Adjust this delay to control the speed of the progress bar
+    }
+}, false);
+
                     return xhr;
                 },
                 type: 'POST',
