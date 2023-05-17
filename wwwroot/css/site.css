@@ -69,3 +69,11 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: purple;
 }
+
+.progress {
+    width: 100%;
+    margin-top: 10%;
+}
+.progress-bar {
+    background-color: purple !important;
+}
