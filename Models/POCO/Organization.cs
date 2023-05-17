@@ -20,6 +20,7 @@ namespace WebApplication5.Models
     public string AccountHolder { get; set; }
     public string OrganizationNumber { get; set; }
     public string Plus_Bankgiro { get; set; }
+    public string Institution { get; set; }
 
     [Required]
     public string Dnr { get; set; }
