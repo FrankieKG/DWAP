@@ -55,6 +55,7 @@ namespace WebApplication5.Migrations
                     AccountHolder = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrganizationNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Plus_Bankgiro = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Institution = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Dnr = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -163,6 +164,10 @@ namespace WebApplication5.Migrations
                     GrantArea = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     From_Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     To_Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Applied_Audit_Contribution = table.Column<int>(type: "int", nullable: true),
+                    Granted_Audit_Contribution = table.Column<int>(type: "int", nullable: true),
+                    Applied_Administrative_Contribution = table.Column<int>(type: "int", nullable: true),
+                    Granted_Administrative_Contribution = table.Column<int>(type: "int", nullable: true),
                     Dnr = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -209,6 +214,11 @@ namespace WebApplication5.Migrations
                     Reported_Number_Of_Days = table.Column<int>(type: "int", nullable: true),
                     NumberOfAppliedScholarships = table.Column<int>(type: "int", nullable: true),
                     NumberOfGrantedScholarships = table.Column<int>(type: "int", nullable: true),
+                    Applied_Scholarship_Amount = table.Column<int>(type: "int", nullable: true),
+                    Approved_Scholarship_Amount = table.Column<int>(type: "int", nullable: true),
+                    Granted_Scholarship_Amount = table.Column<int>(type: "int", nullable: true),
+                    NumberOfScholarshipsAppliedFor = table.Column<int>(type: "int", nullable: true),
+                    NumberOfScholarshipsGranted = table.Column<int>(type: "int", nullable: true),
                     Dnr = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
