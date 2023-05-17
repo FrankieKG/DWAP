@@ -12,7 +12,7 @@ using WebApplication5.Models;
 namespace WebApplication5.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230517085914_Rauk")]
+    [Migration("20230517091726_Rauk")]
     partial class Rauk
     {
         /// <inheritdoc />
@@ -112,6 +112,9 @@ namespace WebApplication5.Migrations
 
                     b.Property<string>("Dnr")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Institution")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Municipality")
@@ -328,6 +331,12 @@ namespace WebApplication5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProgramId"));
 
+                    b.Property<int?>("Applied_Administrative_Contribution")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Applied_Audit_Contribution")
+                        .HasColumnType("int");
+
                     b.Property<string>("Dnr")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -344,6 +353,12 @@ namespace WebApplication5.Migrations
 
                     b.Property<string>("GrantArea")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Granted_Administrative_Contribution")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Granted_Audit_Contribution")
+                        .HasColumnType("int");
 
                     b.Property<string>("PartnerCity")
                         .HasColumnType("nvarchar(max)");
@@ -440,17 +455,32 @@ namespace WebApplication5.Migrations
                     b.Property<int?>("Applied_Number_Of_Days")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Applied_Scholarship_Amount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Applied_Year_Month")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Approved_Scholarship_Amount")
+                        .HasColumnType("int");
 
                     b.Property<string>("Dnr")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Granted_Scholarship_Amount")
+                        .HasColumnType("int");
+
                     b.Property<int?>("NumberOfAppliedScholarships")
                         .HasColumnType("int");
 
                     b.Property<int?>("NumberOfGrantedScholarships")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NumberOfScholarshipsAppliedFor")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NumberOfScholarshipsGranted")
                         .HasColumnType("int");
 
                     b.Property<string>("PreviousApplication_Dnr")
