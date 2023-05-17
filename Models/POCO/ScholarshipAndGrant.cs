@@ -26,8 +26,6 @@ namespace WebApplication5.Models
     public int? Granted_Scholarship_Amount { get; set; }
     public int? NumberOfScholarshipsAppliedFor { get; set; }
     public int? NumberOfScholarshipsGranted { get; set; }
-    public int? Number_Of_Reported_Canceled_Scholarships { get; set; }
-    public int? Number_Of_Reported_Scholarships_Not_Awarded { get; set; }
 
 
     [Required]

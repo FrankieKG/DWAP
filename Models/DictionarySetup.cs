@@ -121,8 +121,6 @@ namespace WebApplication5.Models
                 {"Beviljat belopp stipendier", ("Granted_Scholarship_Amount", typeof(ScholarshipAndGrant))},
                 {"Antal sökta stipendier", ("NumberOfScholarshipsAppliedFor", typeof(ScholarshipAndGrant))},
                 {"Antal beviljade stipendier", ("NumberOfScholarshipsGranted", typeof(ScholarshipAndGrant))},
-                {"Antal rapporterade avbrutna stipendier", ("Number_Of_Reported_Canceled_Scholarships", typeof(ScholarshipAndGrant))},
-                {"Antal rapporterade ej utdelade stipendier", ("Number_Of_Reported_Scholarships_Not_Awarded", typeof(ScholarshipAndGrant))},
                 {"Sökt Revisionsbidrag", ("Applied_Audit_Contribution", typeof(Program))},
                 {"Beviljat revisionsbidrag", ("Granted_Audit_Contribution", typeof(Program))},
                 {"Sökt adminbidrag", ("Applied_Administrative_Contribution", typeof(Program))},
