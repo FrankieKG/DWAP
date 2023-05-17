@@ -20,6 +20,15 @@ namespace WebApplication5.Models
     public int? Reported_Number_Of_Days { get; set; }
     public int? NumberOfAppliedScholarships { get; set; }
     public int? NumberOfGrantedScholarships { get; set; }
+    
+    public int? Applied_Scholarship_Amount { get; set; }
+    public int? Approved_Scholarship_Amount { get; set; }
+    public int? Granted_Scholarship_Amount { get; set; }
+    public int? NumberOfScholarshipsAppliedFor { get; set; }
+    public int? NumberOfScholarshipsGranted { get; set; }
+    public int? Number_Of_Reported_Canceled_Scholarships { get; set; }
+    public int? Number_Of_Reported_Scholarships_Not_Awarded { get; set; }
+
 
     [Required]
     public string Dnr { get; set; }

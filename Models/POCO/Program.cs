@@ -25,7 +25,11 @@ namespace WebApplication5.Models
     public string GrantArea { get; set; }
     public string From_Country { get; set; }
     public string To_Country { get; set; }
-
+    public int? Applied_Audit_Contribution { get; set; }
+    public int? Granted_Audit_Contribution { get; set; }
+    public int? Applied_Administrative_Contribution { get; set; }
+    public int? Granted_Administrative_Contribution { get; set; }
+    
     [Required]
     public string Dnr { get; set; }
   }

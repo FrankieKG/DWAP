@@ -20,7 +20,7 @@ namespace WebApplication5.Models
                 {"Ramärendenr", ("FrameCaseNumber", typeof(ApplicationAndEvaluation)) },
                 {"Ansökansstatus", ("ApplicationStatus", typeof(ApplicationAndEvaluation)) },
                 {"Dnr", ("Dnr", typeof(ApplicationAndEvaluation)) },
-                {"Diarienummer från tidigare ansökan", ("Dnr", typeof(ApplicationAndEvaluation)) },
+                {"Diarienummer från tidigare ansökan", ("PreviousDnr", typeof(PreviousApplication)) },
                 {"Tema", ("Theme", typeof(ApplicationAndEvaluation)) },
                 {"Typ av utbyte", ("Exchange_Type", typeof(ApplicationAndEvaluation)) },
                 {"Viktad kvalitetspoäng från budgeteringsvyn", ("Weighted_QualityPoints_BudgetView", typeof(ApplicationAndEvaluation)) },
@@ -113,10 +113,22 @@ namespace WebApplication5.Models
                 {"Sökt belopp extramedel", ("Applied_Amount_ExtraFunds", typeof(Payment)) },
                 {"Beviljat belopp extramedel", ("Granted_Amount_ExtraFunds", typeof(Payment)) },
                 {"Rapporterat belopp extramedel", ("Reported_Amount_ExtraFunds", typeof(Payment)) },
-                {"Godkänt/justerat belopp extramedel", ("Approved_Adjusted_Amount_ExtraFunds", typeof(Payment)) }
+                {"Godkänt/justerat belopp extramedel", ("Approved_Adjusted_Amount_ExtraFunds", typeof(Payment)) },
+                
+                {"Institution", ("Institution", typeof(Organization)) },
+                {"Sökt belopp stipendier", ("Applied_Scholarship_Amount", typeof(ScholarshipAndGrant))},
+                {"Godkänt belopp stipendier", ("Approved_Scholarship_Amount", typeof(ScholarshipAndGrant))},
+                {"Beviljat belopp stipendier", ("Granted_Scholarship_Amount", typeof(ScholarshipAndGrant))},
+                {"Antal sökta stipendier", ("NumberOfScholarshipsAppliedFor", typeof(ScholarshipAndGrant))},
+                {"Antal beviljade stipendier", ("NumberOfScholarshipsGranted", typeof(ScholarshipAndGrant))},
+                {"Antal rapporterade avbrutna stipendier", ("Number_Of_Reported_Canceled_Scholarships", typeof(ScholarshipAndGrant))},
+                {"Antal rapporterade ej utdelade stipendier", ("Number_Of_Reported_Scholarships_Not_Awarded", typeof(ScholarshipAndGrant))},
+                {"Sökt Revisionsbidrag", ("Applied_Audit_Contribution", typeof(Program))},
+                {"Beviljat revisionsbidrag", ("Granted_Audit_Contribution", typeof(Program))},
+                {"Sökt adminbidrag", ("Applied_Administrative_Contribution", typeof(Program))},
+                {"Beviljat adminbidrag", ("Granted_Administrative_Contribution", typeof(Program))}
             };
-
-
+            
             Dictionary<Type, object> modelInstances = new Dictionary<Type, object>
                     {
                         { typeof(ApplicationAndEvaluation), new ApplicationAndEvaluation() },
