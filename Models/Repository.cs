@@ -301,6 +301,35 @@ public class Repository : IRepository
         return query;
     }
 
+
+    public IQueryable<AtlasPraktikData> GetAtlasPraktikDnr(string dnr)
+    {
+        var query = from ae in context.ApplicationAndEvaluations
+                    join p in context.Payments on ae.Dnr equals p.Dnr
+                    join pa in context.Participants on ae.Dnr equals pa.Dnr
+                    where ae.Dnr == dnr && p.Dnr == dnr && pa.Dnr == dnr
+                    select new AtlasPraktikData
+                    {
+                        Dnr = ae.Dnr,
+                        Period = ae.Period,
+                        ApplicationStatus = ae.ApplicationStatus,
+                        Total_Granted_Amount = p.Total_Granted_Amount,
+                        Total_Approved_Amount = p.Total_Approved_Amount,
+                        Granted_Participant_Number = pa.Granted_Participant_Number,
+                        Reported_Participant_Number = pa.Reported_Participant_Number,
+                        Reported_Women_Student_Number = pa.Reported_Women_Student_Number,
+                        Reported_Men_Student_Number = pa.Reported_Men_Student_Number,
+                        Reported_Women_Teacher_Number = pa.Reported_Women_Teacher_Number,
+                        Reported_Men_Teacher_Number = pa.Reported_Men_Teacher_Number,
+                        Reported_Women_SchoolLeader_Number = pa.Reported_Women_SchoolLeader_Number,
+                        Reported_Men_SchoolLeader_Number = pa.Reported_Men_SchoolLeader_Number,
+                        Reported_Women_AssociatedStaff_Number = pa.Reported_Women_AssociatedStaff_Number,
+                        Reported_Men_AssociatedStaff_Number = pa.Reported_Men_AssociatedStaff_Number
+                    };
+
+        return null;
+    }
+
     #endregion
 
 
