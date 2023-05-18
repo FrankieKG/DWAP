@@ -1,4 +1,4 @@
-﻿namespace WebApplication5.Models.POCO
+﻿namespace WebApplication5.Models
 {
     public class AtlasPartnerskapData
     {

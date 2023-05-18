@@ -13,7 +13,7 @@ namespace WebApplication5.Models
     [MaxLength(255)]
     public DateTime? ReportStatusDate { get; set; }
     public DateTime? Date_when_ReportStatus_Set { get; set; }
-    public string Status_Report { get; set; } 
+    public string Report_Status { get; set; } 
     public DateTime? Reclaim_Paid_Date { get; set; }
     public int? Reclaim_Amount { get; set; }
     public int? Reclaim_Paid_Amount { get; set; }
