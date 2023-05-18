@@ -274,11 +274,11 @@ public class Repository : IRepository
 
     public IQueryable<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr)
     {
-        var query = FROM ae in context.ApplicationAndEvaluations
-                    JOIN p in context.Payments ON ae.Dnr equals p.Dnr
-                    JOIN pa in context.Participants ON ae.Dnr equals pa.Dnr
-                    WHERE ae.Dnr == dnr && p.Dnr == dnr && pa.Dnr == dnr
-                    SELECT new AtlasPartnerskapData
+        var query = from ae in context.ApplicationAndEvaluations
+                    join p in context.Payments on ae.Dnr equals p.Dnr
+                    join pa in context.Participants on ae.Dnr equals pa.Dnr
+                    where ae.Dnr == dnr && p.Dnr == dnr && pa.Dnr == dnr
+                    select new AtlasPartnerskapData
                     {
                         Dnr = ae.Dnr,
                         Period = ae.Period,
@@ -304,11 +304,11 @@ public class Repository : IRepository
 
     public IQueryable<AtlasPraktikData> GetAtlasPraktikDnr(string dnr)
     {
-        var query = FROM ae in context.ApplicationAndEvaluations
-                    JOIN p in context.Payments ON ae.Dnr equals p.Dnr
-                    JOIN pa in context.Participants ON ae.Dnr equals pa.Dnr
-                    WHERE ae.Dnr == dnr && p.Dnr == dnr && pa.Dnr == dnr
-                    SELECT new AtlasPraktikData
+        var query = from ae in context.ApplicationAndEvaluations
+                    join p in context.Payments on ae.Dnr equals p.Dnr
+                    join pa in context.Participants on ae.Dnr equals pa.Dnr
+                    where ae.Dnr == dnr && p.Dnr == dnr && pa.Dnr == dnr
+                    select new AtlasPraktikData
                     {
                         Dnr = ae.Dnr,
                         Period = ae.Period,
@@ -333,29 +333,29 @@ public class Repository : IRepository
 
     public IQueryable<MobilitetsstatistikMFSStipendierData> GetMobilitetsstatistikMFSStipendierDnr(string dnr)
     {
-        var query = FROM ae in context.ApplicationAndEvaluations
-            JOIN rr in context.ReportAndReclaims ON ae.Dnr equals rr.Dnr
-            JOIN sg in context.ScholarshipAndGrants ON ae.Dnr equals sg.Dnr
-            JOIN pa in context.Participants ON ae.Dnr equals pa.Dnr
-            WHERE ae.Dnr == dnr && rr.Dnr == dnr && sg.Dnr == dnr && pa.Dnr == dnr
-            SELECT new MobilitetsstatistikMFSStipendierData
-            {
-                Dnr = ae.Dnr,
-                Period = ae.Period,
-                Report_Status = rr.Report_Status,
-                NumberOfGrantedScholarships = sg.NumberOfGrantedScholarships,
-                Gender = pa.Gender
-            };
+        var query = from ae in context.ApplicationAndEvaluations
+            join rr in context.ReportAndReclaims on ae.Dnr equals rr.Dnr
+            join sg in context.ScholarshipAndGrants on ae.Dnr equals sg.Dnr
+            join pa in context.Participants on ae.Dnr equals pa.Dnr
+            where ae.Dnr == dnr && rr.Dnr == dnr && sg.Dnr == dnr && pa.Dnr == dnr
+            select new MobilitetsstatistikMFSStipendierData
+                {
+                    Dnr = ae.Dnr,
+                    Period = ae.Period,
+                    Report_Status = rr.Report_Status,
+                    NumberOfGrantedScholarships = sg.NumberOfGrantedScholarships,
+                    Gender = pa.Gender
+                };
         return null;
     }
 
 
     public IQueryable<MFSStipendierData> GetMFSStipendierDnr(string dnr)
     {
-        var query = FROM ae in context.ApplicationAndEvaluations
-            JOIN p in context.Payments ON ae.Dnr equals p.Dnr
-            WHERE ae.Dnr == dnr && p.Dnr == dnr
-            SELECT new MFSStipendierData
+        var query = from ae in context.ApplicationAndEvaluations
+            join p in context.Payments on ae.Dnr equals p.Dnr
+            where ae.Dnr == dnr && p.Dnr == dnr
+            select new MFSStipendierData
             {
                 Dnr = ae.Dnr,
                 Period = ae.Period,
