@@ -1,6 +1,6 @@
 namespace WebApplication5.Models;
 
-public class MobilitetsstatestikMFSStipendierData
+public class MobilitetsstatistikMFSStipendierData
 {
     public string Dnr { get; set; }
     public string Period { get; set; }
