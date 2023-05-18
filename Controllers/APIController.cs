@@ -51,8 +51,17 @@ namespace WebApplication5.Controllers
             return new JsonResult(results);
         }
 
+        [Route("GetDnrMFSStipendier")]
+        public JsonResult GetDnrMFSStipendier(string dnr)
+        {
+            var results = repo.GetMFSStipendierDnr(dnr);
 
+            if (results == null)
+            {
+                return new JsonResult(NotFound());
+            }
 
-
+            return new JsonResult(results);
+        }
     }
 }
