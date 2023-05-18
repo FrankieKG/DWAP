@@ -298,7 +298,6 @@ public class Repository : IRepository
                         Reported_Women_AssociatedStaff_Number = pa.Reported_Women_AssociatedStaff_Number,
                         Reported_Men_AssociatedStaff_Number = pa.Reported_Men_AssociatedStaff_Number
                     };
-
         return query;
     }
 

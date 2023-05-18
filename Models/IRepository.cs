@@ -1,4 +1,4 @@
-﻿using WebApplication5.Models.POCO;
+﻿using WebApplication5.Models;
 
 namespace WebApplication5.Models;
 
@@ -17,4 +17,5 @@ public interface IRepository
     void GenerateNewDictionaries();
 
     public IQueryable<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr);
+    public IQueryable<MobilitetsstatestikMFSStipendierData> GetMobilitetsstatestikMFSStipendierDnr(string dnr);
 }
