@@ -305,14 +305,39 @@ public class Repository : IRepository
     }
 
 
-    public IQueryable<AtlasPartnerskapData> GetYearsAtlasPartnerskap(string from, string to)
+    public IQueryable<AtlasPartnerskapData> GetPeriodAtlasPartnerskap(string fromPeriod, string toPeriod)
     {
-        
-        //2016 Omgång 2
-        //20162
+        var query = from ae in context.ApplicationAndEvaluations
+                    join p in context.Payments on ae.Dnr equals p.Dnr
+                    join pa in context.Participants on ae.Dnr equals pa.Dnr
+                    join pr in context.Programs on ae.Dnr equals pr.Dnr
+                    where ae.Period.CompareTo(fromPeriod) >= 0 && ae.Period.CompareTo(toPeriod) <= 0&& pr.ProgramName == "Atlas partnerskap"
+                    select new AtlasPartnerskapData
+                    {
+                        Dnr = ae.Dnr,
+                        Period = ae.Period,
+                        ApplicationStatus = ae.ApplicationStatus,
+                        Total_Granted_Amount = p.Total_Granted_Amount,
+                        Total_Approved_Amount = p.Total_Approved_Amount,
+                        Applied_Student_Number = pa.Applied_Student_Number,
+                        Approved_Student_Number = pa.Approved_Student_Number,
+                        Granted_Participant_Number = pa.Granted_Participant_Number,
+                        Reported_Participant_Number = pa.Reported_Participant_Number,
+                        Reported_Women_Student_Number = pa.Reported_Women_Student_Number,
+                        Reported_Men_Student_Number = pa.Reported_Men_Student_Number,
+                        Reported_Women_Teacher_Number = pa.Reported_Women_Teacher_Number,
+                        Reported_Men_Teacher_Number = pa.Reported_Men_Teacher_Number,
+                        Reported_Women_SchoolLeader_Number = pa.Reported_Women_SchoolLeader_Number,
+                        Reported_Men_SchoolLeader_Number = pa.Reported_Men_SchoolLeader_Number,
+                        Reported_Women_AssociatedStaff_Number = pa.Reported_Women_AssociatedStaff_Number,
+                        Reported_Men_AssociatedStaff_Number = pa.Reported_Men_AssociatedStaff_Number
+                    };
 
-        return null;
+        return query;
     }
+
+
+
 
 
 

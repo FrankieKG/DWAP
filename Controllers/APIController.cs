@@ -38,29 +38,18 @@ namespace WebApplication5.Controllers
         }
 
 
-        [Route("GetYearsAtlasPartnerskap")]
-        public JsonResult GetYearsAtlasPartnerskap(string from, string to)
-        {
-            //string from = 2015 Omgång 1
-            //to = 2015 Omgång 1
-
-            repo.GetYearsAtlasPartnerskap(from, to);
-
-            return new JsonResult(null);
-        }
-
-        //Överlagrad metod:
-        [Route("GetYearsAtlasPartnerskap")]
-        public JsonResult GetYearsAtlasPartnerskap(string period)
-        {
-
-
-            return new JsonResult(null);
-        }
-
-
-
         //Funkar!!
+        [Route("GetPeriodAtlasPartnerskap")]
+        public JsonResult GetPeriodAtlasPartnerskap(string fromPeriod, string toPeriod)
+        {
+            var results = repo.GetPeriodAtlasPartnerskap(fromPeriod, toPeriod);
+
+            return new JsonResult(results);
+        }
+
+
+
+        //Funkar!!!
         [Route("GetDnrAtlasPraktik")]
         public JsonResult GetDnrAtlasPraktik(string dnr)
         {
