@@ -111,6 +111,9 @@ namespace WebApplication5.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Institution")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Municipality")
                         .HasColumnType("nvarchar(max)");
 
@@ -325,6 +328,12 @@ namespace WebApplication5.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProgramId"));
 
+                    b.Property<int?>("Applied_Administrative_Contribution")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Applied_Audit_Contribution")
+                        .HasColumnType("int");
+
                     b.Property<string>("Dnr")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -341,6 +350,12 @@ namespace WebApplication5.Migrations
 
                     b.Property<string>("GrantArea")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Granted_Administrative_Contribution")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Granted_Audit_Contribution")
+                        .HasColumnType("int");
 
                     b.Property<string>("PartnerCity")
                         .HasColumnType("nvarchar(max)");
@@ -418,7 +433,7 @@ namespace WebApplication5.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status_Report")
+                    b.Property<string>("Report_Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ReportId");
@@ -437,17 +452,32 @@ namespace WebApplication5.Migrations
                     b.Property<int?>("Applied_Number_Of_Days")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Applied_Scholarship_Amount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Applied_Year_Month")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Approved_Scholarship_Amount")
+                        .HasColumnType("int");
 
                     b.Property<string>("Dnr")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Granted_Scholarship_Amount")
+                        .HasColumnType("int");
+
                     b.Property<int?>("NumberOfAppliedScholarships")
                         .HasColumnType("int");
 
                     b.Property<int?>("NumberOfGrantedScholarships")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NumberOfScholarshipsAppliedFor")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NumberOfScholarshipsGranted")
                         .HasColumnType("int");
 
                     b.Property<string>("PreviousApplication_Dnr")
@@ -469,7 +499,7 @@ namespace WebApplication5.Migrations
 
                     b.HasKey("ScholarshipId");
 
-                    b.ToTable("ScholarshipAndGrants");
+                    b.ToTable("ScholarshipAndGrant");
                 });
 #pragma warning restore 612, 618
         }
