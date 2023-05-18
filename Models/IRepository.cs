@@ -1,4 +1,5 @@
-﻿using WebApplication5.Models;
+﻿using WebApplication5.Model;
+using WebApplication5.Models;
 
 namespace WebApplication5.Models;
 
@@ -19,4 +20,5 @@ public interface IRepository
     public IQueryable<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr);
     public IQueryable<AtlasPraktikData> GetAtlasPraktikDnr(string dnr);
     public IQueryable<MobilitetsstatistikMFSStipendierData> GetMobilitetsstatistikMFSStipendierDnr(string dnr);
+    public IQueryable<MFSStipendierData> GetMFSStipendierDnr(string dnr);
 }
