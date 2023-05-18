@@ -53,7 +53,7 @@ namespace WebApplication5.Controllers
 
 
         [Route("GetDnrMobilitetsstatestikMFSStipendier")]
-        public JsonResult GetDnrMobilitetsstatestikMFSStipendier(string dnr)
+        public JsonResult GetDnrMobilitetsstatistikMFSStipendier(string dnr)
         {
             var results = repo.GetMobilitetsstatistikMFSStipendierDnr(dnr);
 

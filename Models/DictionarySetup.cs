@@ -115,7 +115,6 @@ namespace WebApplication5.Models
                 {"Beviljat belopp extramedel", ("Granted_Amount_ExtraFunds", typeof(Payment)) },
                 {"Rapporterat belopp extramedel", ("Reported_Amount_ExtraFunds", typeof(Payment)) },
                 {"Godkänt/justerat belopp extramedel", ("Approved_Adjusted_Amount_ExtraFunds", typeof(Payment)) },
-                
                 {"Institution", ("Institution", typeof(Organization)) },
                 {"Sökt belopp stipendier", ("Applied_Scholarship_Amount", typeof(ScholarshipAndGrant))},
                 {"Godkänt belopp stipendier", ("Approved_Scholarship_Amount", typeof(ScholarshipAndGrant))},

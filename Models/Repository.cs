@@ -287,8 +287,8 @@ public class Repository : IRepository
                         Total_Approved_Amount = p.Total_Approved_Amount,
                         Applied_Student_Number = pa.Applied_Student_Number,
                         Approved_Student_Number = pa.Approved_Student_Number,
-                        Granted_Student_Number = pa.Granted_Participant_Number,
-                        Reported_Student_Number = pa.Reported_Participant_Number,
+                        Granted_Participant_Number = pa.Granted_Participant_Number,
+                        Reported_Participant_Number = pa.Reported_Participant_Number,
                         Reported_Women_Student_Number = pa.Reported_Women_Student_Number,
                         Reported_Men_Student_Number = pa.Reported_Men_Student_Number,
                         Reported_Women_Teacher_Number = pa.Reported_Women_Teacher_Number,
@@ -327,44 +327,47 @@ public class Repository : IRepository
                         Reported_Men_AssociatedStaff_Number = pa.Reported_Men_AssociatedStaff_Number
                     };
 
-        return null;
+        return query;
     }
-
 
     public IQueryable<MobilitetsstatistikMFSStipendierData> GetMobilitetsstatistikMFSStipendierDnr(string dnr)
     {
         var query = from ae in context.ApplicationAndEvaluations
-            join rr in context.ReportAndReclaims on ae.Dnr equals rr.Dnr
-            join sg in context.ScholarshipAndGrants on ae.Dnr equals sg.Dnr
-            join pa in context.Participants on ae.Dnr equals pa.Dnr
-            where ae.Dnr == dnr && rr.Dnr == dnr && sg.Dnr == dnr && pa.Dnr == dnr
-            select new MobilitetsstatistikMFSStipendierData
-                {
-                    Dnr = ae.Dnr,
-                    Period = ae.Period,
-                    Report_Status = rr.Report_Status,
-                    NumberOfGrantedScholarships = sg.NumberOfGrantedScholarships,
-                    Gender = pa.Gender
-                };
-        return null;
+                    join rr in context.ReportAndReclaims on ae.Dnr equals rr.Dnr
+                    join sg in context.ScholarshipAndGrants on ae.Dnr equals sg.Dnr
+                    join pa in context.Participants on ae.Dnr equals pa.Dnr
+                    where ae.Dnr == dnr && rr.Dnr == dnr && sg.Dnr == dnr && pa.Dnr == dnr
+                    select new MobilitetsstatistikMFSStipendierData
+                    {
+                        Dnr = ae.Dnr,
+                        Period = ae.Period,
+                        Report_Status = rr.Report_Status,
+                        NumberOfGrantedScholarships = sg.NumberOfGrantedScholarships,
+                        Gender = pa.Gender
+                    };
+
+        return query;
     }
 
 
     public IQueryable<MFSStipendierData> GetMFSStipendierDnr(string dnr)
     {
         var query = from ae in context.ApplicationAndEvaluations
-            join p in context.Payments on ae.Dnr equals p.Dnr
-            where ae.Dnr == dnr && p.Dnr == dnr
-            select new MFSStipendierData
-            {
-                Dnr = ae.Dnr,
-                Period = ae.Period,
-                ApplicationStatus = ae.ApplicationStatus,
-                Total_Granted_Amount = p.Total_Granted_Amount,
-                Total_Approved_Amount = p.Total_Approved_Amount
-            };
-        return null;
+                    join p in context.Payments on ae.Dnr equals p.Dnr
+                    where ae.Dnr == dnr && p.Dnr == dnr
+                    select new MFSStipendierData
+                    {
+                        Dnr = ae.Dnr,
+                        Period = ae.Period,
+                        ApplicationStatus = ae.ApplicationStatus,
+                        Total_Granted_Amount = p.Total_Granted_Amount,
+                        Total_Approved_Amount = p.Total_Approved_Amount
+                    };
+
+        return query;
     }
+
+
     #endregion
 
 
@@ -374,6 +377,8 @@ public class Repository : IRepository
     {
         DictionarySetup dictionary = new();
     }
+
+
     #endregion
     
 }
