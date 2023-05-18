@@ -1,4 +1,4 @@
-﻿using WebApplication5.Models.Utilities;
+﻿using WebApplication5.Models.POCO;
 
 namespace WebApplication5.Models;
 
@@ -16,5 +16,5 @@ public interface IRepository
     Task ReadFile(IFormFile file);
     void GenerateNewDictionaries();
 
-    public List<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr);
+    public IQueryable<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr);
 }

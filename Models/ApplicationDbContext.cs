@@ -16,4 +16,5 @@ public class ApplicationDbContext: DbContext
     public DbSet<Program> Programs { get; set; }
     public DbSet<ReportAndReclaim> ReportAndReclaims { get; set; }
     public DbSet<ScholarshipAndGrant> ScholarshipAndGrants { get; set; }
+    public DbSet<ScholarshipAndGrant> AtlasPartnerskapData { get; set; }
 }
