@@ -13,7 +13,8 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Globalization;
 using System.Collections;
-using WebApplication5.Models.POCO;
+using WebApplication5.Models;
+using WebApplication5.Model;
 
 namespace WebApplication5.Models;
 
@@ -329,6 +330,28 @@ public class Repository : IRepository
 
         return null;
     }
+
+
+    public IQueryable<MobilitetsstatistikMFSStipendierData> GetMobilitetsstatistikMFSStipendierDnr(string dnr)
+    {
+
+
+
+        return null;
+    }
+
+
+    public IQueryable<MFSStipendierData> GetMFSStipendierDnr(string dnr)
+    {
+
+
+
+        return null;
+    }
+
+
+
+
 
     #endregion
 

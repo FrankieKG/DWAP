@@ -1,6 +1,6 @@
 ﻿namespace WebApplication5.Model
 {
-  public class MFSStipendier
+  public class MFSStipendierData
   {
     //ApplicationsAndEvaluations
     public string Dnr { get; set; }
