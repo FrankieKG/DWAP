@@ -12,7 +12,7 @@ using WebApplication5.Models;
 namespace WebApplication5.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230517091726_Rauk")]
+    [Migration("20230518093601_Rauk")]
     partial class Rauk
     {
         /// <inheritdoc />
@@ -436,7 +436,7 @@ namespace WebApplication5.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status_Report")
+                    b.Property<string>("Report_Status")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ReportId");
@@ -502,7 +502,7 @@ namespace WebApplication5.Migrations
 
                     b.HasKey("ScholarshipId");
 
-                    b.ToTable("ScholarshipAndGrants");
+                    b.ToTable("ScholarshipAndGrant");
                 });
 #pragma warning restore 612, 618
         }

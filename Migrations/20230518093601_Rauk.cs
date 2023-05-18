@@ -183,7 +183,7 @@ namespace WebApplication5.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReportStatusDate = table.Column<DateTime>(type: "datetime2", maxLength: 255, nullable: true),
                     Date_when_ReportStatus_Set = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Status_Report = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Report_Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Reclaim_Paid_Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Reclaim_Amount = table.Column<int>(type: "int", nullable: true),
                     Reclaim_Paid_Amount = table.Column<int>(type: "int", nullable: true),
@@ -200,7 +200,7 @@ namespace WebApplication5.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ScholarshipAndGrants",
+                name: "ScholarshipAndGrant",
                 columns: table => new
                 {
                     ScholarshipId = table.Column<int>(type: "int", nullable: false)
@@ -223,7 +223,7 @@ namespace WebApplication5.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ScholarshipAndGrants", x => x.ScholarshipId);
+                    table.PrimaryKey("PK_ScholarshipAndGrant", x => x.ScholarshipId);
                 });
         }
 
@@ -252,7 +252,7 @@ namespace WebApplication5.Migrations
                 name: "ReportAndReclaims");
 
             migrationBuilder.DropTable(
-                name: "ScholarshipAndGrants");
+                name: "ScholarshipAndGrant");
         }
     }
 }
