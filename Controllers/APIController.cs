@@ -40,6 +40,20 @@ namespace WebApplication5.Controllers
         }
 
 
+        [Route("GetDnrAtlasPraktik")]
+        public JsonResult GetDnrAtlasPraktik(string dnr)
+        {
+
+            var results = repo.GetAtlasPraktikDnr(dnr);
+
+            if (results == null)
+            {
+                return new JsonResult(NotFound());
+            }
+
+            return new JsonResult(results);
+        }
+
 
 
 
