@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Globalization;
 using System.Collections;
 using WebApplication5.Models.POCO.Utilities;
+using System.Net;
 
 namespace WebApplication5.Models;
 
@@ -315,35 +316,28 @@ public class Repository : IRepository
                         ApplicationStatus = ae.ApplicationStatus,
                         Total_Granted_Amount = p.Total_Granted_Amount,
                         Total_Approved_Amount = p.Total_Approved_Amount,
-                        Granted_Participant_Number = pa.Granted_Participant_Number,
-                        Reported_Participant_Number = pa.Reported_Participant_Number,
-                        Reported_Women_Student_Number = pa.Reported_Women_Student_Number,
-                        Reported_Men_Student_Number = pa.Reported_Men_Student_Number,
-                        Reported_Women_Teacher_Number = pa.Reported_Women_Teacher_Number,
-                        Reported_Men_Teacher_Number = pa.Reported_Men_Teacher_Number,
-                        Reported_Women_SchoolLeader_Number = pa.Reported_Women_SchoolLeader_Number,
-                        Reported_Men_SchoolLeader_Number = pa.Reported_Men_SchoolLeader_Number,
-                        Reported_Women_AssociatedStaff_Number = pa.Reported_Women_AssociatedStaff_Number,
-                        Reported_Men_AssociatedStaff_Number = pa.Reported_Men_AssociatedStaff_Number
+                        Granted_Student_Number = pa.Granted_Student_Number,
+                        Approved_Student_Number = pa.Approved_Student_Number
                     };
 
         return query;
     }
 
+
     public IQueryable<MobilitetsstatistikMFSStipendierData> GetMobilitetsstatistikMFSStipendierDnr(string dnr)
     {
-        var query = from ae in context.ApplicationAndEvaluations
-                    join rr in context.ReportAndReclaims on ae.Dnr equals rr.Dnr
-                    join sg in context.ScholarshipAndGrants on ae.Dnr equals sg.Dnr
-                    join pa in context.Participants on ae.Dnr equals pa.Dnr
-                    where ae.Dnr == dnr && rr.Dnr == dnr && sg.Dnr == dnr && pa.Dnr == dnr
+        var query = from ae in context.ApplicationAndEvaluations 
+                    join r in context.ReportAndReclaims on ae.Dnr equals r.Dnr
+                    join s in context.ScholarshipAndGrants on r.Dnr equals s.Dnr
+                    join p in context.Participants on s.Dnr equals p.Dnr
+                    where ae.Dnr == dnr && r.Dnr == dnr && s.Dnr == dnr && p.Dnr == dnr
                     select new MobilitetsstatistikMFSStipendierData
                     {
                         Dnr = ae.Dnr,
                         Period = ae.Period,
-                        Report_Status = rr.Report_Status,
-                        NumberOfGrantedScholarships = sg.NumberOfGrantedScholarships,
-                        Gender = pa.Gender
+                        Report_Status = r.Report_Status,
+                        NumberOfGrantedScholarships = s.NumberOfGrantedScholarships,
+                        Gender = p.Gender
                     };
 
         return query;

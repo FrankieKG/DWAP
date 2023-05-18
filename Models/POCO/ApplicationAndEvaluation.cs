@@ -29,7 +29,6 @@ namespace WebApplication5.Models
     public int? QualityPoints_Report { get; set; }
     public string PreviousApplications { get; set; }
 
-    [Required]
     public string Dnr { get; set; }
     }
 }

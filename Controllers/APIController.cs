@@ -23,7 +23,7 @@ namespace WebApplication5.Controllers
         }
 
 
-
+        //Funkar!
         [Route("GetDnrAtlasPartnerskap")]
         public JsonResult GetDnrAtlasPartnerskap(string dnr)
         {
@@ -37,7 +37,7 @@ namespace WebApplication5.Controllers
             return new JsonResult(results);
         }
 
-
+        //Funkar!!!
         [Route("GetDnrAtlasPraktik")]
         public JsonResult GetDnrAtlasPraktik(string dnr)
         {
@@ -52,7 +52,7 @@ namespace WebApplication5.Controllers
         }
 
 
-        [Route("GetDnrMobilitetsstatestikMFSStipendier")]
+        [Route("GetDnrMobilitetsstatistikMFSStipendier")]
         public JsonResult GetDnrMobilitetsstatistikMFSStipendier(string dnr)
         {
             var results = repo.GetMobilitetsstatistikMFSStipendierDnr(dnr);
