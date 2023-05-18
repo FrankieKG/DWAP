@@ -11,10 +11,8 @@ namespace WebApplication5.Models
     
     public int? PaymentAmount { get; set; }
     public int? Total_Applied_Amount { get; set; }
-    //Beviljat belopp:
     public int? Total_Granted_Amount { get; set; }
     public int? Total_Reported_Amount { get; set; }
-    //Godkänt belopp:
     public int? Total_Approved_Amount { get; set; }
     public int? Applied_Amount_ExtraFunds { get; set; }
     public int? Granted_Amount_ExtraFunds { get; set; }

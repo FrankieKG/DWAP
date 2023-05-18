@@ -302,26 +302,6 @@ public class Repository : IRepository
         return query;
     }
 
-
-    public IQueryable<AtlasPraktikData> GetAtlasPraktikDnr(string dnr)
-    {
-        var query = from ae in context.ApplicationAndEvaluations
-                    join p in context.Payments on ae.Dnr equals p.Dnr
-                    join pa in context.Participants on ae.Dnr equals pa.Dnr
-                    where ae.Dnr == dnr && p.Dnr == dnr && pa.Dnr == dnr
-                    select new AtlasPraktikData
-                    {
-                        Dnr = ae.Dnr,
-                        Period = ae.Period,
-                        ApplicationStatus = ae.ApplicationStatus,
-
-                    };
-
-        return null;
-    }
-
-
-
     #endregion
 
 

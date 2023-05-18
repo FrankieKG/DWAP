@@ -17,5 +17,4 @@ public interface IRepository
     void GenerateNewDictionaries();
 
     public IQueryable<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr);
-    public IQueryable<AtlasPraktikData> GetAtlasPraktikDnr(string dnr);
 }
