@@ -15,6 +15,7 @@ using System.Globalization;
 using System.Collections;
 using WebApplication5.Models.POCO.Utilities;
 using System.Net;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebApplication5.Models;
 
@@ -299,8 +300,22 @@ public class Repository : IRepository
                         Reported_Women_AssociatedStaff_Number = pa.Reported_Women_AssociatedStaff_Number,
                         Reported_Men_AssociatedStaff_Number = pa.Reported_Men_AssociatedStaff_Number
                     };
+
         return query;
     }
+
+
+    public IQueryable<AtlasPartnerskapData> GetYearsAtlasPartnerskap(string from, string to)
+    {
+        
+        //2016 Omgång 2
+        //20162
+
+        return null;
+    }
+
+
+
 
 
     public IQueryable<AtlasPraktikData> GetAtlasPraktikDnr(string dnr)
@@ -324,24 +339,31 @@ public class Repository : IRepository
     }
 
 
+
+
+
+
+    //WORK IN PROGRESS! (Funkar för all data inlagd fr.o.m 2019)
     public IQueryable<MobilitetsstatistikMFSStipendierData> GetMobilitetsstatistikMFSStipendierDnr(string dnr)
     {
-        var query = from ae in context.ApplicationAndEvaluations 
+        var query = from ae in context.ApplicationAndEvaluations
                     join r in context.ReportAndReclaims on ae.Dnr equals r.Dnr
                     join s in context.ScholarshipAndGrants on r.Dnr equals s.Dnr
                     join p in context.Participants on s.Dnr equals p.Dnr
-                    where ae.Dnr == dnr && r.Dnr == dnr && s.Dnr == dnr && p.Dnr == dnr
+                    where ae.Dnr == dnr
+                    group new { ae, r, s, p } by new { p.BirthData, p.FirstName } into g
                     select new MobilitetsstatistikMFSStipendierData
                     {
-                        Dnr = ae.Dnr,
-                        Period = ae.Period,
-                        Report_Status = r.Report_Status,
-                        NumberOfGrantedScholarships = s.NumberOfGrantedScholarships,
-                        Gender = p.Gender
+                        Dnr = dnr,
+                        Period = g.First().ae.Period,
+                        Report_Status = g.First().r.Report_Status,
+                        NumberOfGrantedScholarships = g.First().s.NumberOfGrantedScholarships,
+                        Gender = g.First().p.Gender
                     };
 
         return query;
     }
+
 
 
     public IQueryable<MFSStipendierData> GetMFSStipendierDnr(string dnr)
@@ -349,6 +371,7 @@ public class Repository : IRepository
         var query = from ae in context.ApplicationAndEvaluations
                     join p in context.Payments on ae.Dnr equals p.Dnr
                     where ae.Dnr == dnr && p.Dnr == dnr
+
                     select new MFSStipendierData
                     {
                         Dnr = ae.Dnr,

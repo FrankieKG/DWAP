@@ -37,7 +37,30 @@ namespace WebApplication5.Controllers
             return new JsonResult(results);
         }
 
-        //Funkar!!!
+
+        [Route("GetYearsAtlasPartnerskap")]
+        public JsonResult GetYearsAtlasPartnerskap(string from, string to)
+        {
+            //string from = 2015 Omgång 1
+            //to = 2015 Omgång 1
+
+            repo.GetYearsAtlasPartnerskap(from, to);
+
+            return new JsonResult(null);
+        }
+
+        //Överlagrad metod:
+        [Route("GetYearsAtlasPartnerskap")]
+        public JsonResult GetYearsAtlasPartnerskap(string period)
+        {
+
+
+            return new JsonResult(null);
+        }
+
+
+
+        //Funkar!!
         [Route("GetDnrAtlasPraktik")]
         public JsonResult GetDnrAtlasPraktik(string dnr)
         {
@@ -52,6 +75,10 @@ namespace WebApplication5.Controllers
         }
 
 
+        
+
+
+        //WORK IN  (funkar för data fr.o.m 2019)
         [Route("GetDnrMobilitetsstatistikMFSStipendier")]
         public JsonResult GetDnrMobilitetsstatistikMFSStipendier(string dnr)
         {
@@ -64,6 +91,7 @@ namespace WebApplication5.Controllers
 
             return new JsonResult(results);
         }
+
 
         [Route("GetDnrMFSStipendier")]
         public JsonResult GetDnrMFSStipendier(string dnr)
