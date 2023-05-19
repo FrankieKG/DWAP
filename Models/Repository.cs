@@ -268,9 +268,11 @@ public class Repository : IRepository
     }
     #endregion
 
+
+    #region API-Metoder
     //Färdiga:
 
-    #region API-Metoder, Atlas Partnerskap
+    #region Atlas Partnerskap
 
     public IQueryable<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr)
     {
@@ -339,7 +341,7 @@ public class Repository : IRepository
 
     #endregion
 
-    #region API-Metoder, Atlas Praktik
+    #region Atlas Praktik
 
     public IQueryable<AtlasPraktikData> GetAtlasPraktikDnr(string dnr)
     {
@@ -388,10 +390,9 @@ public class Repository : IRepository
     #endregion
 
 
-
     //Ej färdiga:
 
-    #region API-Metoder, MobilitetsstatistikMFSStipendier
+    #region MobilitetsstatistikMFSStipendier
 
     //WORK IN PROGRESS! (Funkar för all data inlagd fr.o.m 2019)
     public IQueryable<MobilitetsstatistikMFSStipendierData> GetMobilitetsstatistikMFSStipendierDnr(string dnr)
@@ -418,7 +419,6 @@ public class Repository : IRepository
 
     public IQueryable<MobilitetsstatistikMFSStipendierData> GetPeriodMobilitetsstatistikMFSStipendier(string fromPeriod, string toPeriod)
     {
-
         var query = from ae in context.ApplicationAndEvaluations
                     join r in context.ReportAndReclaims on ae.Dnr equals r.Dnr
                     join s in context.ScholarshipAndGrants on r.Dnr equals s.Dnr
@@ -426,24 +426,21 @@ public class Repository : IRepository
                     join pr in context.Programs on ae.Dnr equals pr.Dnr
                     where ae.Period.CompareTo(fromPeriod) >= 0 && ae.Period.CompareTo(toPeriod) <= 0
                                                                && pr.ProgramName == "Minor Field Studies Stipendier"
-                    group new {ae, r, s, p, pr} by new {pr.ProgramId} into newGroup
                     select new MobilitetsstatistikMFSStipendierData
                     {
-                        Dnr = newGroup.First().ae.Dnr,
-                        Period = newGroup.First().ae.Period,
-                        Report_Status = newGroup.First().r.Report_Status,
-                        NumberOfGrantedScholarships = newGroup.First().s.NumberOfGrantedScholarships,
-                        Gender = newGroup.First().p.Gender
+                        Dnr = ae.Dnr,
+                        Period = ae.Period,
+                        Report_Status = r.Report_Status,
+                        NumberOfGrantedScholarships = s.NumberOfGrantedScholarships,
+                        Gender = p.Gender
                     };
-
         return query;
     }
 
 
     #endregion
 
-
-
+    #region MFSStipendier
 
 
     public IQueryable<MFSStipendierData> GetMFSStipendierDnr(string dnr)
@@ -464,7 +461,9 @@ public class Repository : IRepository
         return query;
     }
 
+    #endregion
 
+    #endregion
 
 
     #region Hjälpmetoder
@@ -475,5 +474,4 @@ public class Repository : IRepository
 
 
     #endregion
-    
 }
