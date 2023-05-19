@@ -44,6 +44,11 @@ namespace WebApplication5.Controllers
         {
             var results = repo.GetPeriodAtlasPartnerskap(fromPeriod, toPeriod);
 
+            if (results == null)
+            {
+                return new JsonResult(NotFound());
+            }
+
             return new JsonResult(results);
         }
 
@@ -64,10 +69,25 @@ namespace WebApplication5.Controllers
         }
 
 
-        
+
+        //FUNKAR!!!!!!!
+        [Route("GetPeriodAtlasPraktik")]
+        public JsonResult GetPeriodAtlasPraktik(string fromPeriod, string toPeriod)
+        {
+            var results = repo.GetPeriodAtlasPraktik(fromPeriod, toPeriod);
+
+            if (results == null)
+            {
+                return new JsonResult(NotFound());
+            }
+
+            return new JsonResult(results);
+        }
 
 
-        //WORK IN  (funkar för data fr.o.m 2019)
+
+
+        //Funkar för data fr.o.m 2019)
         [Route("GetDnrMobilitetsstatistikMFSStipendier")]
         public JsonResult GetDnrMobilitetsstatistikMFSStipendier(string dnr)
         {
@@ -80,6 +100,23 @@ namespace WebApplication5.Controllers
 
             return new JsonResult(results);
         }
+
+        //
+        [Route("GetPeriodMobilitetsstatistikMFSStipendier")]
+        public JsonResult GetPeriodMobilitetsstatistikMFSStipendier(string fromPeriod, string toPeriod)
+        {
+            var results = repo.GetPeriodMobilitetsstatistikMFSStipendier(fromPeriod, toPeriod);
+
+            if(results == null)
+            {
+                return new JsonResult(NotFound());
+            }
+
+            return new JsonResult(results);
+        }
+
+
+
 
 
         [Route("GetDnrMFSStipendier")]

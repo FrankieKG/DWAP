@@ -20,6 +20,11 @@ public interface IRepository
     public IQueryable<AtlasPartnerskapData> GetPeriodAtlasPartnerskap(string fromPeriod, string toPeriod);
 
     public IQueryable<AtlasPraktikData> GetAtlasPraktikDnr(string dnr);
+    public IQueryable<AtlasPraktikData> GetPeriodAtlasPraktik(string fromPeriod, string toPeriod);
+
     public IQueryable<MobilitetsstatistikMFSStipendierData> GetMobilitetsstatistikMFSStipendierDnr(string dnr);
+    public IQueryable<MobilitetsstatistikMFSStipendierData> GetPeriodMobilitetsstatistikMFSStipendier(string fromPeriod, string toPeriod);
+
+
     public IQueryable<MFSStipendierData> GetMFSStipendierDnr(string dnr);
 }

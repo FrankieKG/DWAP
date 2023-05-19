@@ -268,18 +268,18 @@ public class Repository : IRepository
     }
     #endregion
 
+    //Färdiga:
 
-
-    #region API-Metoder
-
-
+    #region API-Metoder, Atlas Partnerskap
 
     public IQueryable<AtlasPartnerskapData> GetAtlasPartnerskapDnr(string dnr)
     {
         var query = from ae in context.ApplicationAndEvaluations
                     join p in context.Payments on ae.Dnr equals p.Dnr
                     join pa in context.Participants on ae.Dnr equals pa.Dnr
+                    join pr in context.Programs on ae.Dnr equals pr.Dnr
                     where ae.Dnr == dnr && p.Dnr == dnr && pa.Dnr == dnr
+                    && pr.ProgramName == "Atlas partnerskap"
                     select new AtlasPartnerskapData
                     {
                         Dnr = ae.Dnr,
@@ -311,7 +311,8 @@ public class Repository : IRepository
                     join p in context.Payments on ae.Dnr equals p.Dnr
                     join pa in context.Participants on ae.Dnr equals pa.Dnr
                     join pr in context.Programs on ae.Dnr equals pr.Dnr
-                    where ae.Period.CompareTo(fromPeriod) >= 0 && ae.Period.CompareTo(toPeriod) <= 0&& pr.ProgramName == "Atlas partnerskap"
+                    where ae.Period.CompareTo(fromPeriod) >= 0 && ae.Period.CompareTo(toPeriod) <= 0
+                                                        && pr.ProgramName == "Atlas partnerskap"
                     select new AtlasPartnerskapData
                     {
                         Dnr = ae.Dnr,
@@ -336,12 +337,9 @@ public class Repository : IRepository
         return query;
     }
 
+    #endregion
 
-
-
-
-
-
+    #region API-Metoder, Atlas Praktik
 
     public IQueryable<AtlasPraktikData> GetAtlasPraktikDnr(string dnr)
     {
@@ -364,9 +362,36 @@ public class Repository : IRepository
     }
 
 
+    public IQueryable<AtlasPraktikData> GetPeriodAtlasPraktik(string fromPeriod, string toPeriod)
+    {
+        var query = from ae in context.ApplicationAndEvaluations
+                    join p in context.Payments on ae.Dnr equals p.Dnr
+                    join pa in context.Participants on ae.Dnr equals pa.Dnr
+                    join pr in context.Programs on ae.Dnr equals pr.Dnr
+                    where ae.Period.CompareTo(fromPeriod) >= 0 && ae.Period.CompareTo(toPeriod) <= 0
+                    && pr.ProgramName == "Atlas Praktik"
+                    select new AtlasPraktikData
+                    {
+                        Dnr = ae.Dnr,
+                        Period = ae.Period,
+                        ApplicationStatus = ae.ApplicationStatus,
+                        Total_Granted_Amount = p.Total_Granted_Amount,
+                        Total_Approved_Amount = p.Total_Approved_Amount,
+                        Granted_Student_Number = pa.Granted_Student_Number,
+                        Approved_Student_Number = pa.Approved_Student_Number
+                    };
+
+        return query;
+    }
+
+
+    #endregion
 
 
 
+    //Ej färdiga:
+
+    #region API-Metoder, MobilitetsstatistikMFSStipendier
 
     //WORK IN PROGRESS! (Funkar för all data inlagd fr.o.m 2019)
     public IQueryable<MobilitetsstatistikMFSStipendierData> GetMobilitetsstatistikMFSStipendierDnr(string dnr)
@@ -375,6 +400,7 @@ public class Repository : IRepository
                     join r in context.ReportAndReclaims on ae.Dnr equals r.Dnr
                     join s in context.ScholarshipAndGrants on r.Dnr equals s.Dnr
                     join p in context.Participants on s.Dnr equals p.Dnr
+                    join pr in context.Programs on ae.Dnr equals pr.Dnr
                     where ae.Dnr == dnr
                     group new { ae, r, s, p } by new { p.BirthData, p.FirstName } into g
                     select new MobilitetsstatistikMFSStipendierData
@@ -388,6 +414,35 @@ public class Repository : IRepository
 
         return query;
     }
+
+
+    public IQueryable<MobilitetsstatistikMFSStipendierData> GetPeriodMobilitetsstatistikMFSStipendier(string fromPeriod, string toPeriod)
+    {
+
+        var query = from ae in context.ApplicationAndEvaluations
+                    join r in context.ReportAndReclaims on ae.Dnr equals r.Dnr
+                    join s in context.ScholarshipAndGrants on r.Dnr equals s.Dnr
+                    join p in context.Participants on s.Dnr equals p.Dnr
+                    join pr in context.Programs on ae.Dnr equals pr.Dnr
+                    where ae.Period.CompareTo(fromPeriod) >= 0 && ae.Period.CompareTo(toPeriod) <= 0
+                                                               && pr.ProgramName == "Minor Field Studies Stipendier"
+                    group new {ae, r, s, p, pr} by new {pr.ProgramId} into newGroup
+                    select new MobilitetsstatistikMFSStipendierData
+                    {
+                        Dnr = newGroup.First().ae.Dnr,
+                        Period = newGroup.First().ae.Period,
+                        Report_Status = newGroup.First().r.Report_Status,
+                        NumberOfGrantedScholarships = newGroup.First().s.NumberOfGrantedScholarships,
+                        Gender = newGroup.First().p.Gender
+                    };
+
+        return query;
+    }
+
+
+    #endregion
+
+
 
 
 
@@ -409,8 +464,6 @@ public class Repository : IRepository
         return query;
     }
 
-
-    #endregion
 
 
 
