@@ -27,6 +27,7 @@ public class Repository : IRepository
       this.context = context;
     }
 
+
     private readonly ApplicationDbContext context;
 
     public IQueryable<ApplicationAndEvaluation> ApplicationAndEvaluations => context.ApplicationAndEvaluations;
@@ -37,6 +38,7 @@ public class Repository : IRepository
     public IQueryable<Program> Programs => context.Programs;
     public IQueryable<ReportAndReclaim> ReportAndReclaims => context.ReportAndReclaims;
     public IQueryable<ScholarshipAndGrant> ScholarshipAndGrants => context.ScholarshipAndGrants;
+
 
     public List<ApplicationAndEvaluation> ApplicationAndEvaluationList { get; set; }
     public List<Organization> OrganizationList { get; set; }
@@ -314,7 +316,7 @@ public class Repository : IRepository
                     join pa in context.Participants on ae.Dnr equals pa.Dnr
                     join pr in context.Programs on ae.Dnr equals pr.Dnr
                     where ae.Period.CompareTo(fromPeriod) >= 0 && ae.Period.CompareTo(toPeriod) <= 0
-                                                        && pr.ProgramName == "Atlas partnerskap"
+                                                               && pr.ProgramName == "Atlas partnerskap"
                     select new AtlasPartnerskapData
                     {
                         Dnr = ae.Dnr,
