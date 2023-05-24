@@ -93,7 +93,3 @@ button[type="submit"]:hover {
     justify-content: center; /* Aligns content horizontally */
     align-items: center; /* Aligns content vertically */
 }
-
-.purple-bar h2 {
-    margin: 0;
-}
