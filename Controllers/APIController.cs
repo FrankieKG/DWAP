@@ -15,7 +15,6 @@ namespace WebApplication5.Controllers
         private readonly ApplicationDbContext context;
         private readonly IRepository repo;
 
-
         public APIController(ApplicationDbContext context, IRepository repo)
         {
             this.context = context;
@@ -23,7 +22,6 @@ namespace WebApplication5.Controllers
         }
 
 
-        //Funkar!
         [Route("GetDnrAtlasPartnerskap")]
         public JsonResult GetDnrAtlasPartnerskap(string dnr)
         {
@@ -38,7 +36,6 @@ namespace WebApplication5.Controllers
         }
 
 
-        //Funkar!!
         [Route("GetPeriodAtlasPartnerskap")]
         public JsonResult GetPeriodAtlasPartnerskap(string fromPeriod, string toPeriod)
         {
@@ -51,7 +48,6 @@ namespace WebApplication5.Controllers
 
             return new JsonResult(results);
         }
-
 
 
         //Funkar!!!

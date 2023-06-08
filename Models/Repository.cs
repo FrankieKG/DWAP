@@ -15,7 +15,6 @@ using System.Globalization;
 using System.Collections;
 using WebApplication5.Models.POCO.Utilities;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebApplication5.Models;
 
@@ -101,7 +100,6 @@ public class Repository : IRepository
                         { typeof(Organization), new Organization() },
                         { typeof(Participant), new Participant() },
                         { typeof(Payment), new Payment() },
-                        //{ typeof(PreviousApplication), new PreviousApplication() },
                         { typeof(Program), new Program() },
                         { typeof(ReportAndReclaim), new ReportAndReclaim() },
                         { typeof(ScholarshipAndGrant), new ScholarshipAndGrant() }
@@ -272,6 +270,7 @@ public class Repository : IRepository
 
 
     #region API-Metoder
+    
     //Färdiga:
 
     #region Atlas Partnerskap
@@ -283,7 +282,7 @@ public class Repository : IRepository
                     join pa in context.Participants on ae.Dnr equals pa.Dnr
                     join pr in context.Programs on ae.Dnr equals pr.Dnr
                     where ae.Dnr == dnr && p.Dnr == dnr && pa.Dnr == dnr
-                    && pr.ProgramName == "Atlas partnerskap"
+                                        && pr.ProgramName == "Atlas partnerskap"
                     select new AtlasPartnerskapData
                     {
                         Dnr = ae.Dnr,

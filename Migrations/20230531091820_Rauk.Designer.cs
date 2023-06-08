@@ -12,7 +12,7 @@ using WebApplication5.Models;
 namespace WebApplication5.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230518102909_Rauk")]
+    [Migration("20230531091820_Rauk")]
     partial class Rauk
     {
         /// <inheritdoc />

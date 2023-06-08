@@ -33,11 +33,11 @@ namespace WebApplication5.Models
     public int? Reported_Men_SchoolLeader_Number { get; set; }
     public int? Reported_Women_AssociatedStaff_Number { get; set; }
     public int? Reported_Men_AssociatedStaff_Number { get; set; }
-    public int? Applied_Staff_Number{ get; set; }
-    public int? Granted_Staff_Number{ get; set; }
-    public int? Approved_Staff_Number{ get; set; }
-    public int? Repported_Staff_Number{ get; set; }
-    public int? Accompanying_Support_Staff{ get; set; }
+    public int? Applied_Staff_Number { get; set; }
+    public int? Granted_Staff_Number { get; set; }
+    public int? Approved_Staff_Number { get; set; }
+    public int? Repported_Staff_Number { get; set; }
+    public int? Accompanying_Support_Staff { get; set; }
 
     [Required]
     public string Dnr { get; set; }
