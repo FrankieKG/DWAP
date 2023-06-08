@@ -20,13 +20,13 @@ body {
 }
 
 h2 {
-    margin: 0 !important;
-    font-size: 24px; /* Increased the font size for better visibility */
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 10px;
     text-align: center;
     color: #fff;
-    font-weight: 700; /* Made the font weight bolder */
-    letter-spacing: 1px; /* Added letter-spacing for better readability */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Added text-shadow for depth */
+    font-size: 16px;
+    font-weight: bold;
 }
 
 
@@ -89,7 +89,4 @@ button[type="submit"]:hover {
     height: 50px;
     background-color: rebeccapurple;
     width: 100%;
-    display: flex; /* Added for alignment */
-    justify-content: center; /* Aligns content horizontally */
-    align-items: center; /* Aligns content vertically */
 }
