@@ -1,0 +1,47 @@
+@startuml
+class AtlasPartnerskapData {
+    +Dnr: string
+    +Period: string
+    +ApplicationStatus: string
+    +Total_Granted_Amount: int?
+    +Total_Approved_Amount: int?
+    +Applied_Student_Number: int?
+    +Approved_Student_Number: int?
+    +Granted_Participant_Number: int?
+    +Reported_Participant_Number: int?
+    +Reported_Women_Student_Number: int?
+    +Reported_Men_Student_Number: int?
+    +Reported_Women_Teacher_Number: int?
+    +Reported_Men_Teacher_Number: int?
+    +Reported_Women_SchoolLeader_Number: int?
+    +Reported_Men_SchoolLeader_Number: int?
+    +Reported_Women_AssociatedStaff_Number: int?
+    +Reported_Men_AssociatedStaff_Number: int?
+}
+
+class AtlasPraktikData {
+    +Dnr: string
+    +Period: string
+    +ApplicationStatus: string
+    +Total_Granted_Amount: int?
+    +Total_Approved_Amount: int?
+    +Granted_Student_Number: int?
+    +Approved_Student_Number: int?
+}
+
+class MFSStipendierData {
+    +Dnr: string
+    +Period: string
+    +ApplicationStatus: string
+    +Total_Granted_Amount: int?
+    +Total_Approved_Amount: int?
+}
+
+class MobilitetsstatistikMFSStipendierData {
+    +Dnr: string
+    +Period: string
+    +Report_Status: string
+    +NumberOfGrantedScholarships: int?
+    +Gender: string
+}
+@enduml
